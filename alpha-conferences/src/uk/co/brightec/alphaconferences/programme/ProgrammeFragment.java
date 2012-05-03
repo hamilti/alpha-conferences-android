@@ -1,6 +1,12 @@
 package uk.co.brightec.alphaconferences.programme;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import uk.co.brightec.alphaconferences.AlphaAdapter;
 import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.alphaconferences.Row;
+import uk.co.brightec.alphaconferences.Section;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,28 +23,21 @@ public class ProgrammeFragment extends SherlockListFragment {
 		super.onCreate(savedInstanceState);
 		
 		// data
-		ProgrammeRow[] rows = new ProgrammeRow[10];		
+		List<Row> rows = new ArrayList<Row>();
 		for (int i = 0; i < 10; i++) {
-			ProgrammeRow row = new ProgrammeRow();
-			row.title = "Main Session" + i;
-			row.subTitle = "The Royal Albert Hall";
-			row.speakerName = "Cameron Cooke";
-			row.time = "10:00 - 11:00";
-			row.barColourInt = ((i % 2) == 1 ? Color.RED : Color.BLUE) ;
-			rows[i] = row;
+			ProgrammeRow row = new ProgrammeRow("Main Session " + i, "The Royal Albert Hall", "Cameron Cooke", "10:00 - 11:00", ((i % 2) == 1 ? Color.RED : Color.BLUE), this.getActivity());
+			rows.add(row);
 		}
 		
-		ProgrammeSection[] sections = new ProgrammeSection[4];
+		List<Section> sections = new ArrayList<Section>();
 		for (int i = 0; i < 4; i++) {
-			ProgrammeSection section = new ProgrammeSection();
-			section.title = "Section " + i;
-			section.rows = rows;
-			sections[i] = section;
+			Section section = new Section("Section " + i, rows, this.getActivity());
+			sections.add(section);
 		}		
 		
-        ProgrammeListAdapter listAdapter = new ProgrammeListAdapter(getActivity());
-        listAdapter.setSections(sections);
-        setListAdapter(listAdapter);
+        AlphaAdapter adapter = new AlphaAdapter();
+        adapter.setSections(sections);
+        setListAdapter(adapter);
 	}
 
 	

@@ -14,9 +14,6 @@ public class MapFragment extends SherlockListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-//        MapListAdapter listAdapter = new MapListAdapter(getActivity());
-//        setListAdapter(listAdapter);
 	}
 
 	
