@@ -45,19 +45,27 @@ public class MoreListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View row = convertView;
+		if (row == null) {
+			row = mInflater.inflate(R.layout.more_list_item, null);	
+			ViewHolder holder = new ViewHolder();
+			holder.titleTextView = (TextView)row.findViewById(R.id.title);
+			holder.imageView = (ImageView)row.findViewById(R.id.image);
+			row.setTag(holder);
+		}	
 		
+		// datasource
 		MoreRow moreRow = mListItems[position];
 		
-		View row = mInflater.inflate(R.layout.more_list_item, null);				
-		TextView titleTextView = (TextView)row.findViewById(R.id.title);
-		ImageView imageView = (ImageView)row.findViewById(R.id.image);
-		
-		titleTextView.setText(moreRow.title);
-		imageView.setImageResource(moreRow.iconImageResource);
-		
+		ViewHolder holder = (ViewHolder)row.getTag();
+		holder.titleTextView.setText(moreRow.title);
+		holder.imageView.setImageResource(moreRow.iconImageResource);
 		
 		return row;
 	}
 	
-	
+	static class ViewHolder {
+		TextView titleTextView;
+		ImageView imageView;
+	}	
 }

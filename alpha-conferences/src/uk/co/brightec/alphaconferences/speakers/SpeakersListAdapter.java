@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SpeakersListAdapter extends BaseAdapter {
@@ -41,18 +42,28 @@ public class SpeakersListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View row = convertView;
+		if (row == null) {
+			row = mInflater.inflate(R.layout.speaker_list_item, null);
+			ViewHolder holder = new ViewHolder();
+			holder.titleTextView = (TextView)row.findViewById(R.id.title);
+			holder.subTitleTextView = (TextView)row.findViewById(R.id.subTitle);
+			holder.imageView = (ImageView)row.findViewById(R.id.image);
+			row.setTag(holder);
+		}
 		
-		View row = mInflater.inflate(R.layout.speaker_list_item, null);
-		
-		TextView titleTextView = (TextView)row.findViewById(R.id.title);
-		TextView subTitleTextView = (TextView)row.findViewById(R.id.subTitle);
-//		ImageView imageView = (ImageView)row.findViewById(R.id.image);
-		
-		titleTextView.setText("Cameron Cooke");
-		subTitleTextView.setText("Amazing world famous actor best known for lead role in Ape the Movie.");
+		ViewHolder holder = (ViewHolder)row.getTag();
+				
+		holder.titleTextView.setText("Cameron Cooke");
+		holder.subTitleTextView.setText("Amazing world famous actor best known for lead role in Ape the Movie.");
 		
 		return row;
 	}
 	
 	
+	static class ViewHolder {
+		TextView titleTextView;
+		TextView subTitleTextView;
+		ImageView imageView;		
+	}
 }

@@ -42,28 +42,40 @@ public class ProgrammeListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		View row = convertView;
+		if (row == null) {
+			row = mInflater.inflate(R.layout.programme_list_item, null);
+			ViewHolder holder = new ViewHolder();
+			holder.titleTextView = (TextView)row.findViewById(R.id.title);
+			holder.subTitleTextView = (TextView)row.findViewById(R.id.subTitle);
+			holder.speakerTextView = (TextView)row.findViewById(R.id.speakerName);
+			holder.timeTextView = (TextView)row.findViewById(R.id.time);
+			holder.barColourView = row.findViewById(R.id.barColour);
+			row.setTag(holder);
+		}
 		
-		View row = mInflater.inflate(R.layout.programme_list_item, null);
-		
-		TextView titleTextView = (TextView)row.findViewById(R.id.title);
-		TextView subTitleTextView = (TextView)row.findViewById(R.id.subTitle);
-		TextView speakerTextView = (TextView)row.findViewById(R.id.speakerName);
-		TextView timeTextView = (TextView)row.findViewById(R.id.time);
-		View barColourView = row.findViewById(R.id.barColour);
-		
-		titleTextView.setText("Main Session" + (position+1));
-		subTitleTextView.setText("The Royal Albert Hall");
-		speakerTextView.setText("Cameron Cooke");
-		timeTextView.setText("10:00 - 11:00");
+		ViewHolder holder = (ViewHolder)row.getTag();
+		holder.titleTextView.setText("Main Session" + (position+1));
+		holder.subTitleTextView.setText("The Royal Albert Hall");
+		holder.speakerTextView.setText("Cameron Cooke");
+		holder.timeTextView.setText("10:00 - 11:00");
 		
 		if ((position % 2) == 1) {
-			barColourView.setBackgroundColor(Color.RED);	
+			holder.barColourView.setBackgroundColor(Color.RED);	
 		}
 		else {
-			barColourView.setBackgroundColor(Color.BLUE);
+			holder.barColourView.setBackgroundColor(Color.BLUE);
 		}		
 		
 		return row;
 	}
 	
+	
+	static class ViewHolder {
+		TextView titleTextView;
+		TextView subTitleTextView;
+		TextView speakerTextView;
+		TextView timeTextView;
+		View barColourView;				
+	}
 }
