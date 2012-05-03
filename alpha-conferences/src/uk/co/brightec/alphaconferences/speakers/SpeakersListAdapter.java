@@ -52,8 +52,7 @@ public class SpeakersListAdapter extends BaseAdapter {
 			row.setTag(holder);
 		}
 		
-		ViewHolder holder = (ViewHolder)row.getTag();
-				
+		ViewHolder holder = (ViewHolder)row.getTag();			
 		holder.titleTextView.setText("Cameron Cooke");
 		holder.subTitleTextView.setText("Amazing world famous actor best known for lead role in Ape the Movie.");
 		
