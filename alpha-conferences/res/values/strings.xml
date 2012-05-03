@@ -2,4 +2,10 @@
 <resources>
     <string name="app_name">Alpha Conferences</string>
     <string name="no_list_data">No data is available</string>
+    <string name="twitter_menu_title">Twitter Stream</string>
+    <string name="donate_menu_title">Donate</string>
+    <string name="alerts_menu_title">Alerts</string>
+    <string name="faqs_menu_title">FAQs</string>
+    <string name="other_events_menu_title">Other events</string>
+    <string name="special_offers_menu_title">Special offers</string>
 </resources>

@@ -1,199 +1,128 @@
 package uk.co.brightec.alphaconferences;
 
-import java.util.HashMap;
-
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
-import android.content.Context;
-import android.os.Build;
+import uk.co.brightec.alphaconferences.map.MapFragment;
+import uk.co.brightec.alphaconferences.more.MoreFragment;
+import uk.co.brightec.alphaconferences.programme.ProgrammeFragment;
+import uk.co.brightec.alphaconferences.speakers.SpeakersFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.TabHost;
 
-public class MainActivity extends FragmentActivity {
-    TabHost mTabHost;
-    TabManager mTabManager;
-    
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+
+public class MainActivity extends SherlockFragmentActivity {
+	
+	private ActionBar mActionBar;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        /**
-         * If Android 3.x or later use ActionBar for navigation otherwise
-         * gracefully degrade to using TabHost.
-         */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	        
-        	/**
-        	 * Android 3.x and later
-        	 */
-        	
-	        ActionBar actionBar = getActionBar();
-	        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-	//        actionBar.setDisplayShowTitleEnabled(false);
-	        
-	        Tab homeTab  = actionBar.newTab()
-	        		.setText(R.string.home_tab)
-	        		.setTabListener(new TabListener<HomeFragment>(this, "home", HomeFragment.class));
-	        actionBar.addTab(homeTab);
-	        
-	        Tab speakersTab  = actionBar.newTab()
-	        		.setText(R.string.speakers_tab)
-	        		.setTabListener(new TabListener<SpeakersFragment>(this, "speakers", SpeakersFragment.class));
-	        actionBar.addTab(speakersTab); 
-	        
-	        Tab programmeTab  = actionBar.newTab()
-	        		.setText(R.string.programme_tab)
-	        		.setTabListener(new TabListener<ProgrammeFragment>(this, "programme", ProgrammeFragment.class));
-	        actionBar.addTab(programmeTab); 
-	        
-	        Tab mapTab  = actionBar.newTab()
-	        		.setText(R.string.maps_tab)
-	        		.setTabListener(new TabListener<MapFragment>(this, "Maps", MapFragment.class));
-	        actionBar.addTab(mapTab);     
-        }
-        else {
-        	
-        	/**
-        	 * Android 2.x and earlier
-        	 */
-        	
-        	setContentView(R.layout.tab_host);
-        	mTabHost = (TabHost)findViewById(android.R.id.tabhost);
-        	mTabHost.setup();
-        	
-            mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
-
-            mTabManager.addTab(mTabHost.newTabSpec("home").setIndicator("Home"),
-            		HomeFragment.class, null);
-            
-            mTabManager.addTab(mTabHost.newTabSpec("speakers").setIndicator("Speakers"),
-                    SpeakersFragment.class, null);
-            
-            mTabManager.addTab(mTabHost.newTabSpec("programme").setIndicator("Programme"),
-                    ProgrammeFragment.class, null);
-            
-            mTabManager.addTab(mTabHost.newTabSpec("maps").setIndicator("Maps"),
-                    MapFragment.class, null);
-
-            if (savedInstanceState != null) {
-                mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
-            }        	
-        }
-    }
-	
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+	    mActionBar = getSupportActionBar();
+	    mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);        
+	    mActionBar.setDisplayShowTitleEnabled(true);        
         
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-        	outState.putString("tab", mTabHost.getCurrentTabTag());
-        }
-    }
-    
-    /**
-     * This is a helper class that implements a generic mechanism for
-     * associating fragments with the tabs in a tab host.  It relies on a
-     * trick.  Normally a tab host has a simple API for supplying a View or
-     * Intent that each tab will show.  This is not sufficient for switching
-     * between fragments.  So instead we make the content part of the tab host
-     * 0dp high (it is not shown) and the TabManager supplies its own dummy
-     * view to show as the tab content.  It listens to changes in tabs, and takes
-     * care of switch to the correct fragment shown in a separate content area
-     * whenever the selected tab changes.
-     * 
-     * Source: http://developer.android.com/reference/android/app/TabActivity.html
-     */
-    public static class TabManager implements TabHost.OnTabChangeListener {
-        private final FragmentActivity mActivity;
-        private final TabHost mTabHost;
-        private final int mContainerId;
-        private final HashMap<String, TabInfo> mTabs = new HashMap<String, TabInfo>();
-        TabInfo mLastTab;
+	    // programme
+	    Tab programmeTab  = mActionBar.newTab()
+	    		.setText(R.string.programme_tab)
+	    		.setTabListener(new TabListener<ProgrammeFragment>(this, "programme", ProgrammeFragment.class));
+	    mActionBar.addTab(programmeTab);         
+	    
+	    // speakers
+	    Tab speakersTab  = mActionBar.newTab()
+	    		.setText(R.string.speakers_tab)
+	    		.setTabListener(new TabListener<SpeakersFragment>(this, "speakers", SpeakersFragment.class));
+	    mActionBar.addTab(speakersTab); 
+	    
+	    // maps
+	    Tab mapTab  = mActionBar.newTab()
+	    		.setText(R.string.maps_tab)
+	    		.setTabListener(new TabListener<MapFragment>(this, "map", MapFragment.class));
+	    mActionBar.addTab(mapTab);
+	    
+	    // more
+	    Tab moreTab  = mActionBar.newTab()
+	    		.setText(R.string.more_tab)
+				.setTabListener(new TabListener<MoreFragment>(this, "more", MoreFragment.class));        
+	    mActionBar.addTab(moreTab);
+	   
+	    // restore previous selected tab
+	    if (savedInstanceState != null) {
+	    	Integer activeTabIndex = savedInstanceState.getInt("activeTabIndex", 0);
+	    	mActionBar.selectTab(mActionBar.getTabAt(activeTabIndex));
+	    	
+		}
+    }  
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		Integer activeTabIndex = mActionBar.getSelectedNavigationIndex();
+		outState.putInt("activeTabIndex", activeTabIndex);
+		super.onSaveInstanceState(outState);
+	}
+	
+	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+	    private Fragment mFragment;
+	    private final SherlockFragmentActivity mActivity;
+	    private final String mTag;
+	    private final Class<T> mClass;
 
-        static final class TabInfo {
-            private final String tag;
-            private final Class<?> clss;
-            private final Bundle args;
-            private Fragment fragment;
+	    /** Constructor used each time a new tab is created.
+	      * @param activity  The host Activity, used to instantiate the fragment
+	      * @param tag  The identifier tag for the fragment
+	      * @param clz  The fragment's Class, used to instantiate the fragment
+	      */
+	    public TabListener(SherlockFragmentActivity activity, String tag, Class<T> clz) {
+	        mActivity = activity;
+	        mTag = tag;
+	        mClass = clz;
+	    }
 
-            TabInfo(String _tag, Class<?> _class, Bundle _args) {
-                tag = _tag;
-                clss = _class;
-                args = _args;
-            }
-        }
+	    /* The following are each of the ActionBar.TabListener callbacks */
 
-        static class DummyTabFactory implements TabHost.TabContentFactory {
-            private final Context mContext;
+	    @Override
+		public void onTabSelected(Tab tab, FragmentTransaction ft) {
+	        FragmentManager fragMgr = mActivity.getSupportFragmentManager();
+	        ft = fragMgr.beginTransaction();
+	        ft.commit();	    	
+	        
+	        // restore an existing fragment
+	        mFragment = fragMgr.findFragmentByTag(mTag);
+	    	
+	        // Check if the fragment is already initialised
+	        if (mFragment == null) {
+	            // If not, instantiate and add it to the activity
+	            mFragment = Fragment.instantiate(mActivity, mClass.getName());
+	            ft.add(android.R.id.content, mFragment, mTag);
+	        } else {
+	            // If it exists, simply attach it in order to show it
+	            ft.attach(mFragment);
+	        }
+	    }
 
-            public DummyTabFactory(Context context) {
-                mContext = context;
-            }
+	    @Override
+		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	        if (mFragment != null) {
+	            // Detach the fragment, because another one is being attached
+	            ft.detach(mFragment);
+	        }
+	    }
 
-            @Override
-            public View createTabContent(String tag) {
-                View v = new View(mContext);
-                v.setMinimumWidth(0);
-                v.setMinimumHeight(0);
-                return v;
-            }
-        }
-
-        public TabManager(FragmentActivity activity, TabHost tabHost, int containerId) {
-            mActivity = activity;
-            mTabHost = tabHost;
-            mContainerId = containerId;
-            mTabHost.setOnTabChangedListener(this);
-        }
-
-        public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args) {
-            tabSpec.setContent(new DummyTabFactory(mActivity));
-            String tag = tabSpec.getTag();
-
-            TabInfo info = new TabInfo(tag, clss, args);
-
-            // Check to see if we already have a fragment for this tab, probably
-            // from a previously saved state.  If so, deactivate it, because our
-            // initial state is that a tab isn't shown.
-            info.fragment = mActivity.getSupportFragmentManager().findFragmentByTag(tag);
-            if (info.fragment != null && !info.fragment.isDetached()) {
-                FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
-                ft.detach(info.fragment);
-                ft.commit();
-            }
-
-            mTabs.put(tag, info);
-            mTabHost.addTab(tabSpec);
-        }
-
-        @Override
-        public void onTabChanged(String tabId) {
-            TabInfo newTab = mTabs.get(tabId);
-            if (mLastTab != newTab) {
-                FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
-                if (mLastTab != null) {
-                    if (mLastTab.fragment != null) {
-                        ft.detach(mLastTab.fragment);
-                    }
-                }
-                if (newTab != null) {
-                    if (newTab.fragment == null) {
-                        newTab.fragment = Fragment.instantiate(mActivity,
-                                newTab.clss.getName(), newTab.args);
-                        ft.add(mContainerId, newTab.fragment, newTab.tag);
-                    } else {
-                        ft.attach(newTab.fragment);
-                    }
-                }
-
-                mLastTab = newTab;
-                ft.commit();
-                mActivity.getSupportFragmentManager().executePendingTransactions();
-            }
-        }
-    }    
+	    @Override
+		public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	        // User selected the already selected tab. Usually do nothing.
+	    }
+	}	
 }

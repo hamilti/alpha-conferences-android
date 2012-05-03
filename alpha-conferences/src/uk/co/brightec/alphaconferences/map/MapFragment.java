@@ -1,23 +1,28 @@
-package uk.co.brightec.alphaconferences;
+package uk.co.brightec.alphaconferences.map;
 
+import uk.co.brightec.alphaconferences.R;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MapFragment extends Fragment {
+import com.actionbarsherlock.app.SherlockListFragment;
 
-	
+public class MapFragment extends SherlockListFragment {
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+//        MapListAdapter listAdapter = new MapListAdapter(getActivity());
+//        setListAdapter(listAdapter);
 	}
 
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.home, container, false);
+		return inflater.inflate(R.layout.list, container, false);
 	}
 
 	
@@ -26,5 +31,5 @@ public class MapFragment extends Fragment {
 		super.onPause();
 	}
 	
-	
+
 }

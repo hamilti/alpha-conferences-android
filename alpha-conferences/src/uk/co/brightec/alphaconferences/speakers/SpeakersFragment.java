@@ -1,26 +1,29 @@
-package uk.co.brightec.alphaconferences;
+package uk.co.brightec.alphaconferences.speakers;
 
+import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.alphaconferences.R.layout;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ProgrammeFragment extends ListFragment {
+import com.actionbarsherlock.app.SherlockListFragment;
 
+public class SpeakersFragment extends SherlockListFragment {
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-        MyListAdapter listAdapter = new MyListAdapter(getActivity());
+        SpeakersListAdapter listAdapter = new SpeakersListAdapter(getActivity());
         setListAdapter(listAdapter);
 	}
 
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.speakers, container, false);
+		return inflater.inflate(R.layout.list, container, false);
 	}
 
 	
@@ -28,6 +31,6 @@ public class ProgrammeFragment extends ListFragment {
 	public void onPause() {
 		super.onPause();
 	}
-	
 
+	
 }
