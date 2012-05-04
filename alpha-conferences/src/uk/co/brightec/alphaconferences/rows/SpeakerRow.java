@@ -1,30 +1,28 @@
 package uk.co.brightec.alphaconferences.rows;
 
+import uk.co.brightec.alphaconferences.DownloadableImageView;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
+import uk.co.brightec.alphaconferences.data.Speaker;
+import uk.co.brightec.alphaconferences.resources.Resource;
 import android.content.Context;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+
 public class SpeakerRow extends Row {
-	public String mSpeaker;
-	public String mDescription;
-	public int mImageResource;
+
+    private final Speaker speaker;
 	
-	public SpeakerRow(String speaker, String description, int imageResource, Context context) {
+	public SpeakerRow(Speaker speaker, Context context) {
 		super(context);
-		mSpeaker = speaker;
-		mDescription = description;
-		mImageResource = imageResource;
+		this.speaker = speaker;
 	}
 	
 	
 	@Override
 	public String indexerAlphaString() {
-		String alpha = mSpeaker.substring(0, 1);
-		alpha.toUpperCase();
-		return alpha;
+		return speaker.indexLetter();
 	}
 	
 	
@@ -36,14 +34,16 @@ public class SpeakerRow extends Row {
 			SpeakersViewHolder holder = new SpeakersViewHolder();
 			holder.speakerTextView = (TextView)rowView.findViewById(R.id.title);
 			holder.descriptionTextView = (TextView)rowView.findViewById(R.id.subTitle);
-			holder.imageView = (ImageView)rowView.findViewById(R.id.image);
+			holder.imageView = (DownloadableImageView)rowView.findViewById(R.id.image);
 			rowView.setTag(holder);
 		}
 		
 		SpeakersViewHolder holder = (SpeakersViewHolder)rowView.getTag();			
-		holder.speakerTextView.setText(mSpeaker);
-		holder.descriptionTextView.setText(mDescription);
-		holder.imageView.setImageResource(mImageResource);
+		holder.speakerTextView.setText(speaker.displayName());
+		holder.descriptionTextView.setText(speaker.position);
+
+		Resource imageResource = new Resource(speaker.imageKey, Resource.Type.SpeakerImageSmall);
+		holder.imageView.setUrl(imageResource.url(), imageResource.cacheFilename());
 		
 		return rowView;
 	}
@@ -52,6 +52,6 @@ public class SpeakerRow extends Row {
 	private static class SpeakersViewHolder {
 		TextView speakerTextView;
 		TextView descriptionTextView;
-		ImageView imageView;		
+		DownloadableImageView imageView;
 	}	
 }

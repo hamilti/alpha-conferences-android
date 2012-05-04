@@ -1,73 +1,117 @@
 package uk.co.brightec.alphaconferences.speakers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
+import uk.co.brightec.alphaconferences.Constants;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.Section;
+import uk.co.brightec.alphaconferences.data.DataStore;
+import uk.co.brightec.alphaconferences.data.DownloadService;
+import uk.co.brightec.alphaconferences.data.Speaker;
 import uk.co.brightec.alphaconferences.rows.SpeakerRow;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 
+
 public class SpeakersFragment extends SherlockListFragment {
+    
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("***", "SpeakersFragment.BroadcastReceiver onReceive");
+            if (Constants.DATA_WAS_UPDATED_INTENT.equals(intent.getAction())) {
+                populate();
+            }
+        }
+    };
+
+    
 	private AlphaAdapter adapter;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		String[] alphabet = new String[] {
-			"A",
-			"B",
-			"C",
-			"D",
-			"E",
-			"F",
-			"G",
-			"H",
-			"I",
-			"J",
-			"K",
-			"L",
-			"M",
-			"N",
-			"O",
-			"P",
-			"Q",
-			"R",
-			"S",
-			"T",
-			"U",
-			"V",
-			"W",
-			"X",
-			"Y",
-			"Z"
-		};
-		
-		// data
-		List<Row> rows = new ArrayList<Row>();
-		for (int i = 0; i < alphabet.length; i++) {
-			SpeakerRow row = new SpeakerRow(alphabet[i] + "oon Bloggs ", "World famous actor best known for leading role in the blockbuster film Ape the Movie.", R.drawable.ic_launcher, this.getActivity());
-			rows.add(row);
-		}
-		
-		List<Section> sections = new ArrayList<Section>();
-		Section section = new Section(null, rows, this.getActivity());
-		sections.add(section);		
+//		List<Section> sections = new ArrayList<Section>();
+//		Section section = new Section(null, rows, this.getActivity());
+//		sections.add(section);		
 		
         adapter = new AlphaAdapter();
         adapter.showAlphaIndex(true);
-        adapter.setSections(sections);
-        setListAdapter(adapter);		
+        setListAdapter(adapter);
+        
+        //populate();
 	}
 
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+	    super.onViewCreated(view, savedInstanceState);
+	    getListView().setOnItemClickListener(adapter);
+	}
+	
+	
+	private void populate() {
+	    final Context context = getActivity();
+	    
+	    Map<String,List<Speaker>> speakersKeyedByLetter = new HashMap<String,List<Speaker>>();
+	    List<Speaker> allSpeakers = DataStore.speakers(context);
+	    for (Speaker s : allSpeakers) {
+	        String key = s.indexLetter();
+	        List<Speaker> l = speakersKeyedByLetter.get(key);
+	        if (l == null) {
+	            l = new ArrayList<Speaker>();
+	            speakersKeyedByLetter.put(key, l);
+	        }
+	        l.add(s);
+	    }
+    
+	    List<String> sortedKeys = new ArrayList<String>(speakersKeyedByLetter.keySet());
+	    Collections.sort(sortedKeys);
+	    
+	    List<Section> sections = new ArrayList<Section>();
+	    for (String key : sortedKeys) {
+	        List<Row> rows = new ArrayList<Row>();
+	        for (final Speaker s : speakersKeyedByLetter.get(key)) {
+	            SpeakerRow row = new SpeakerRow(s, context);
+	            
+	            row.setOnClickListener(new Row.OnClickListener() {
+                    @Override
+                    public void onRowClicked() {
+                        Intent intent = new Intent(context, SpeakerDetailActivity.class);
+                        intent.putExtra(SpeakerDetailActivity.EXTRA_SPEAKER_ID, s.speakerId);
+                        context.startActivity(intent);
+                    }
+                });
+	            
+	            rows.add(row);
+	        }
+	        sections.add(new Section(key, rows, context));
+	    }
+        
+	    adapter.setSections(sections);
+	    adapter.notifyDataSetChanged();
+	}
+
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,10 +125,20 @@ public class SpeakersFragment extends SherlockListFragment {
         getListView().setFastScrollEnabled(true);
 	}
 	
+	@Override
+	public void onResume() {
+        super.onResume();
+	    LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter(Constants.DATA_WAS_UPDATED_INTENT));
+	    
+	    // temporary workaround!
+        Context context = getActivity();
+        context.startService(new Intent(context, DownloadService.class));
+	}
 	
 	@Override
 	public void onPause() {
 		super.onPause();
+		LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(receiver);
 	}
 
 	

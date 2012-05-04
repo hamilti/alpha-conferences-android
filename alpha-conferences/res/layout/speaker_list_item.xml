@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <ImageView
+    <uk.co.brightec.alphaconferences.DownloadableImageView
         android:id="@+id/image"
         style="@style/ListItemImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_launcher" />
+        android:layout_gravity="center_vertical" />
 
     <LinearLayout
         android:layout_width="fill_parent"
