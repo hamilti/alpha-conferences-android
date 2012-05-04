@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,7 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.SectionIndexer;
 
 public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, SectionIndexer {
-	private List<Cell> mRows;
+	private List<Cell> mRows = Collections.emptyList();
 	
 	// section indexer
 	private Boolean mShowAlphaIndex;
