@@ -1,4 +1,4 @@
-package uk.co.brightec.alphaconferences.programme;
+package uk.co.brightec.alphaconferences.rows;
 
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
@@ -14,7 +14,7 @@ public class ProgrammeRow extends Row {
 	public int mBarColour;
 	
 	
-	protected ProgrammeRow(String title, String venue, String speakerName, String time, int barColour, Context context) {
+	public ProgrammeRow(String title, String venue, String speakerName, String time, int barColour, Context context) {
 		super(context);
 		mTitle = title;
 		mVenue = venue;
@@ -30,7 +30,7 @@ public class ProgrammeRow extends Row {
 		if (rowView == null) {
 			rowView = mInflater.inflate(R.layout.programme_list_item, null);
 			ProgrammeViewHolder holder = new ProgrammeViewHolder();
-//			holder.barColourView = rowView.findViewById(R.id.barColour);
+			holder.barColourView = rowView.findViewById(R.id.barColour);
 			holder.titleTextView = (TextView)rowView.findViewById(R.id.title);
 			holder.subTitleTextView = (TextView)rowView.findViewById(R.id.subTitle);
 			holder.speakerNameTextView = (TextView)rowView.findViewById(R.id.speakerName);
@@ -39,7 +39,7 @@ public class ProgrammeRow extends Row {
 		}
 		
 		ProgrammeViewHolder holder = (ProgrammeViewHolder)rowView.getTag();			
-//		holder.barColourView.setBackgroundResource(mBarColour);
+		holder.barColourView.setBackgroundColor(mBarColour);
 		holder.titleTextView.setText(mTitle);
 		holder.subTitleTextView.setText(mVenue);
 		holder.speakerNameTextView.setText(mSpeakerName);

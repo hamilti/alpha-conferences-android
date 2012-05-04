@@ -7,6 +7,7 @@ import uk.co.brightec.alphaconferences.AlphaAdapter;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.Section;
+import uk.co.brightec.alphaconferences.rows.SpeakerRow;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

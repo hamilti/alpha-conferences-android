@@ -8,4 +8,8 @@
     <string name="faqs_menu_title">FAQs</string>
     <string name="other_events_menu_title">Other events</string>
     <string name="special_offers_menu_title">Special offers</string>
+    <string name="website_button">View Website</string>
+    <string name="twiter_button">Follow on Twitter</string>
+    <string name="map_button_title">View map</string>
+    <string name="floorplan_button_title">View floorplan</string>
 </resources>

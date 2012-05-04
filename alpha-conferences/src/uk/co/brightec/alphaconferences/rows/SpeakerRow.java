@@ -1,4 +1,4 @@
-package uk.co.brightec.alphaconferences.speakers;
+package uk.co.brightec.alphaconferences.rows;
 
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;

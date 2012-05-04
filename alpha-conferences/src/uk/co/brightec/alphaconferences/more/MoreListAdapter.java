@@ -1,6 +1,7 @@
 package uk.co.brightec.alphaconferences.more;
 
 import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.alphaconferences.rows.MoreRow;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ public class MoreListAdapter extends BaseAdapter {
 			row.setTag(holder);
 		}	
 		
-		// datasource
+		// data source
 		MoreRow moreRow = mListItems[position];
 		
 		ViewHolder holder = (ViewHolder)row.getTag();

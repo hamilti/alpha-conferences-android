@@ -1,6 +1,7 @@
 package uk.co.brightec.alphaconferences.more;
 
 import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.alphaconferences.rows.MoreRow;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;

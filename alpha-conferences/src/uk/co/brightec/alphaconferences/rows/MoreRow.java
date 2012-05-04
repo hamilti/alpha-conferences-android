@@ -1,4 +1,4 @@
-package uk.co.brightec.alphaconferences.more;
+package uk.co.brightec.alphaconferences.rows;
 
 public class MoreRow {
 
