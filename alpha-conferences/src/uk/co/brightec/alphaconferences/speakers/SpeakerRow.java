@@ -21,6 +21,14 @@ public class SpeakerRow extends Row {
 	
 	
 	@Override
+	public String indexerAlphaString() {
+		String alpha = mSpeaker.substring(0, 1);
+		alpha.toUpperCase();
+		return alpha;
+	}
+	
+	
+	@Override
 	public View getView(View convertView) {
 		View rowView = convertView;
 		if (rowView == null) {

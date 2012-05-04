@@ -15,16 +15,45 @@ import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockListFragment;
 
 public class SpeakersFragment extends SherlockListFragment {
-
+	private AlphaAdapter adapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		String[] alphabet = new String[] {
+			"A",
+			"B",
+			"C",
+			"D",
+			"E",
+			"F",
+			"G",
+			"H",
+			"I",
+			"J",
+			"K",
+			"L",
+			"M",
+			"N",
+			"O",
+			"P",
+			"Q",
+			"R",
+			"S",
+			"T",
+			"U",
+			"V",
+			"W",
+			"X",
+			"Y",
+			"Z"
+		};
+		
 		// data
 		List<Row> rows = new ArrayList<Row>();
-		for (int i = 0; i < 20; i++) {
-			SpeakerRow row = new SpeakerRow("Cameron Cooke", "World famous actor best known for leading role in the blockbuster film Ape the Movie.", R.drawable.ic_launcher, this.getActivity());
+		for (int i = 0; i < alphabet.length; i++) {
+			SpeakerRow row = new SpeakerRow(alphabet[i] + "oon Bloggs ", "World famous actor best known for leading role in the blockbuster film Ape the Movie.", R.drawable.ic_launcher, this.getActivity());
 			rows.add(row);
 		}
 		
@@ -32,9 +61,10 @@ public class SpeakersFragment extends SherlockListFragment {
 		Section section = new Section(null, rows, this.getActivity());
 		sections.add(section);		
 		
-        AlphaAdapter adapter = new AlphaAdapter();
+        adapter = new AlphaAdapter();
+        adapter.showAlphaIndex(true);
         adapter.setSections(sections);
-        setListAdapter(adapter);
+        setListAdapter(adapter);		
 	}
 
 	
@@ -43,6 +73,13 @@ public class SpeakersFragment extends SherlockListFragment {
 		return inflater.inflate(R.layout.list, container, false);
 	}
 
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+        getListView().setFastScrollEnabled(true);
+	}
+	
 	
 	@Override
 	public void onPause() {
