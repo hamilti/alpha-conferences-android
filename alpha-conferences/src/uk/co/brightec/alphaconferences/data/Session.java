@@ -1,0 +1,63 @@
+package uk.co.brightec.alphaconferences.data;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
+import org.json.JSONObject;
+
+import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.util.JSON;
+import uk.co.brightec.util.JSON.DateIntepretation;
+
+
+public class Session {
+
+
+    public static enum Type {
+        NONE(0, R.color.session_default),
+        MAIN(1, R.color.session_type_main),
+        SEMINAR_OPTION(2, R.color.session_type_seminar_option),
+        SEMINAR_SLOT(3, R.color.session_type_seminar_slot),
+        BREAK(4, R.color.session_type_break),
+        ADMIN(5, R.color.session_type_admin);
+        
+        public static final List<Type> TYPES = Collections.unmodifiableList(Arrays.asList(NONE, MAIN, SEMINAR_OPTION, SEMINAR_SLOT, BREAK, ADMIN));
+        
+        public final int intValue;
+        public final int color;
+        
+        private Type(int intValue, int color) {
+            this.intValue = intValue;
+            this.color = color;
+        }
+    }
+
+
+    public final int sessionId, dayId, roomId, streamId, sessionGroupId;
+    public final Type type;
+    public final String name, text;
+    public final LocalDateTime startDateTime, endDateTime;
+    
+    
+    Session(JSONObject o) {
+        this.sessionId = o.optInt("id");
+        this.dayId = o.optInt("day");
+        this.type = Type.TYPES.get(o.optInt("session_type"));
+        this.roomId = o.optInt("room");
+        this.streamId = o.optInt("stream");
+        this.sessionGroupId = o.optInt("session_group");
+        this.name = JSON.getString(o, "name");
+        this.startDateTime = JSON.getLocalDateTime(o, "start_datetime", DateIntepretation.SECONDS_SINCE_1970, DateTimeZone.UTC);
+        this.endDateTime = JSON.getLocalDateTime(o, "end_datetime", DateIntepretation.SECONDS_SINCE_1970, DateTimeZone.UTC);
+        this.text = JSON.getString(o, "description");
+    }
+
+
+    public LocalDateTime startHour() {
+        return startDateTime.hourOfDay().roundFloorCopy();
+    }
+
+}

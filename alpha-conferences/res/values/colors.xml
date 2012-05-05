@@ -2,4 +2,10 @@
 <resources>
     <color name="emphasis">#31b6e7</color>
     <color name="bg_gray">#cecbce</color>
+    <color name="session_default">#cccccc</color>
+    <color name="session_type_main">#cccccc</color>
+    <color name="session_type_seminar_option">#cccccc</color>
+    <color name="session_type_seminar_slot">#cccccc</color>
+    <color name="session_type_break">#cccccc</color>
+    <color name="session_type_admin">#cccccc</color>
 </resources>

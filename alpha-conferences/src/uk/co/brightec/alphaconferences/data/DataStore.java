@@ -53,4 +53,49 @@ public class DataStore {
     }
     
 
+    public static List<Day> days(Context context) {
+        List<Day> result = new ArrayList<Day>();
+        DBHelper h = null;
+        SQLiteDatabase db = null;
+        try {
+            h = new DBHelper(context);
+            db = h.getWritableDatabase();
+
+            List<JSONObject> entities = DBHelper.getEntities(db, "days");
+            for (JSONObject j : entities) {
+                result.add(new Day(j));
+            }
+            
+        } finally {
+            if (db != null) db.close();
+            if (h != null) h.close();
+        }
+        
+        Collections.sort(result);
+        return result;
+    }
+
+
+    public static List<Session> sessions(Context context) {
+        List<Session> result = new ArrayList<Session>();
+        DBHelper h = null;
+        SQLiteDatabase db = null;
+        try {
+            h = new DBHelper(context);
+            db = h.getWritableDatabase();
+
+            List<JSONObject> entities = DBHelper.getEntities(db, "sessions");
+            for (JSONObject j : entities) {
+                result.add(new Session(j));
+            }
+            
+        } finally {
+            if (db != null) db.close();
+            if (h != null) h.close();
+        }
+        
+        return result;
+    }
+
+
 }
