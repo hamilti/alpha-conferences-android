@@ -4,13 +4,12 @@
     android:layout_height="wrap_content"
     android:padding="10dp" >
 
-    <ImageView
+    <uk.co.brightec.alphaconferences.DownloadableImageView
         android:id="@+id/imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_launcher" />
+        android:layout_centerVertical="true" />
 
     <LinearLayout
         android:layout_width="wrap_content"
