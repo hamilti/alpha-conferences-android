@@ -12,4 +12,6 @@
     <string name="twiter_button">Follow on Twitter</string>
     <string name="map_button_title">View map</string>
     <string name="floorplan_button_title">View floorplan</string>
+    <string name="view_all_venues_row_title">View all venues on a map</string>
+    <string name="all_venues_action_bar_title">All venues</string>
 </resources>

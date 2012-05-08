@@ -13,16 +13,12 @@ import uk.co.brightec.alphaconferences.AlphaAdapter;
 import uk.co.brightec.alphaconferences.Page;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
-import uk.co.brightec.alphaconferences.Row.OnClickListener;
 import uk.co.brightec.alphaconferences.Section;
 import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Day;
 import uk.co.brightec.alphaconferences.data.Session;
-import uk.co.brightec.alphaconferences.more.TwitterActivity;
 import uk.co.brightec.alphaconferences.rows.ProgrammeRow;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,35 +40,7 @@ public class ProgrammeFragment extends SherlockListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mPageIndex = 0;
-
-        // data
-        List<Row> rows = new ArrayList<Row>();
-        for (int i = 0; i < 2; i++) {
-            ProgrammeRow row = new ProgrammeRow("Main Session " + i, "The Royal Albert Hall", "Cameron Cooke", "10:00 - 11:00", ((i % 2) == 1 ? Color.RED : Color.BLUE), this.getActivity());
-            row.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onRowClicked() {
-                    Intent intent = new Intent(getActivity(), TwitterActivity.class);
-                    startActivity(intent);
-                }
-            });
-            rows.add(row);
-        }
-
-        List<Section> sections = new ArrayList<Section>();
-        for (int i = 0; i < 4; i++) {
-            Section section = new Section(i + "0:00 - " + (i+1) + "0:00", rows, this.getActivity());
-            sections.add(section);
-        }
-
-        mPages = new ArrayList<Page>();
-        for (int i = 0; i < 5; i++) {
-            Page page = new Page("Page " + i, sections);
-            mPages.add(page);
-        }
     }
 
     private void setPage(int pageIndex) {
@@ -125,7 +93,6 @@ public class ProgrammeFragment extends SherlockListFragment {
         super.onActivityCreated(savedInstanceState);
 
         adapter = new AlphaAdapter();
-        setPage(mPageIndex);
         setListAdapter(adapter);
 
         getListView().setOnItemClickListener(adapter);
@@ -202,8 +169,8 @@ public class ProgrammeFragment extends SherlockListFragment {
                         // seminar slot
                         String title = "Seminar options";
                         String time = session.startDateTime.toString("HH:mm") + " - " + session.endDateTime.toString("HH:mm");
-                        int color = session.type.color;
-                        rows.add(new ProgrammeRow(title, null, null, time, color, context));
+                        int colorHex = session.type.color;
+                        rows.add(new ProgrammeRow(title, null, null, time, colorHex, context));
                     }
                     else {
                         // all other sessions
@@ -222,7 +189,7 @@ public class ProgrammeFragment extends SherlockListFragment {
             mPages.add(new Page(title, sections));
         }
 
-        setPage(0);
+        setPage(mPageIndex);
     }
 
 }
