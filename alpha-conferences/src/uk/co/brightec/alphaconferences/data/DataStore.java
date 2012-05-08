@@ -1,5 +1,6 @@
 package uk.co.brightec.alphaconferences.data;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,10 +9,13 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 
 public class DataStore {
-    
+
+    private static final String TAG = "DataStore";
+
     
     public static List<Speaker> speakers(Context context) {
         List<Speaker> result = new ArrayList<Speaker>();
@@ -114,6 +118,104 @@ public class DataStore {
             if (h != null) h.close();
         }
         return result;
+    }
+
+    public static Venue venue(Context context, int venueId) {
+        return entity(context, Venue.class, "venues", venueId);
+    }
+
+
+    public static List<Alert> alerts(Context context) {
+        return entities(context, Alert.class, "alerts");
+    }
+
+    public static Alert alert(Context context, int alertId) {
+        return entity(context, Alert.class, "alerts", alertId);
+    }
+
+
+    public static List<FAQ> faqs(Context context) {
+        return entities(context, FAQ.class, "faqs");
+    }
+
+    public static FAQ faq(Context context, int faqId) {
+        return entity(context, FAQ.class, "faqs", faqId);
+    }
+
+
+    public static List<SpecialOffer> specialOffers(Context context) {
+        return entities(context, SpecialOffer.class, "special_offers");
+    }
+
+    public static SpecialOffer specialOffer(Context context, int specialOfferId) {
+        return entity(context, SpecialOffer.class, "special_offers", specialOfferId);
+    }
+
+
+    private static <C> List<C> entities(Context context, Class<C> c, String type) {
+        DBHelper h = null;
+        SQLiteDatabase db = null;
+        try {
+            h = new DBHelper(context);
+            db = h.getWritableDatabase();
+            List<JSONObject> entities = DBHelper.getEntities(db, type);
+            List<C> result = new ArrayList<C>();
+
+            try {
+                for (JSONObject j : entities) {
+                    C instance = c.getDeclaredConstructor(JSONObject.class).newInstance(j);
+                    result.add(instance);
+                }
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (InstantiationException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (IllegalAccessException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (InvocationTargetException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (NoSuchMethodException e) {
+                Log.e(TAG, "unexpected error", e);
+            }
+
+            return result;
+
+        } finally {
+            if (db != null) db.close();
+            if (h != null) h.close();
+        }
+    }
+
+
+    private static <C> C entity(Context context, Class<C> c, String type, int entityId) {
+        DBHelper h = null;
+        SQLiteDatabase db = null;
+        try {
+            h = new DBHelper(context);
+            db = h.getWritableDatabase();
+            C result = null;
+
+            try {
+                JSONObject j = DBHelper.getEntity(db, type, entityId);
+                result = c.getDeclaredConstructor(JSONObject.class).newInstance(j);
+            } catch (IllegalArgumentException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (InstantiationException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (IllegalAccessException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (InvocationTargetException e) {
+                Log.e(TAG, "unexpected error", e);
+            } catch (NoSuchMethodException e) {
+                Log.e(TAG, "unexpected error", e);
+            }
+
+            return result;
+
+        } finally {
+            if (db != null) db.close();
+            if (h != null) h.close();
+        }
     }
 
 
