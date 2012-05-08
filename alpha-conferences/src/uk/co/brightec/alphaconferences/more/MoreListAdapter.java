@@ -33,8 +33,8 @@ public class MoreListAdapter extends BaseAdapter {
 
 	
 	@Override
-	public Object getItem(int position) {		
-		return null;
+	public MoreRow getItem(int position) {		
+		return mListItems[position];
 	}
 	
 
@@ -56,7 +56,7 @@ public class MoreListAdapter extends BaseAdapter {
 		}	
 		
 		// data source
-		MoreRow moreRow = mListItems[position];
+		MoreRow moreRow = getItem(position);
 		
 		ViewHolder holder = (ViewHolder)row.getTag();
 		holder.titleTextView.setText(moreRow.title);

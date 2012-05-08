@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".more.TwitterActivity"></activity>
+        <activity android:name=".more.DonateActivity"></activity>
         <activity android:name=".speakers.SpeakerDetailActivity"></activity>
         <service android:name=".data.DownloadService"></service>
     </application>

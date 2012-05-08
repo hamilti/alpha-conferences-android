@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import uk.co.brightec.alphaconferences.Constants;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -17,6 +19,11 @@ public class DataStore {
     private static final String TAG = "DataStore";
 
     
+    public static Conference conference(Context context) {
+        return entity(context, Conference.class, "conference", Constants.CONFERENCE_ID);
+    }
+
+
     public static List<Speaker> speakers(Context context) {
         List<Speaker> result = new ArrayList<Speaker>();
         DBHelper h = null;

@@ -25,6 +25,13 @@ public class MoreFragment extends SherlockListFragment {
 		MoreRow donateRow = new MoreRow();
 		donateRow.title = getString(R.string.donate_menu_title);
 		donateRow.iconImageResource =  R.drawable.donate;
+		donateRow.onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DonateActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        };
 		
 		MoreRow alertRow = new MoreRow();
 		alertRow.title = getString(R.string.alerts_menu_title);
@@ -56,16 +63,13 @@ public class MoreFragment extends SherlockListFragment {
         setListAdapter(listAdapter);
 	}
 
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		
-		if (position == 0) {			
-			Intent intent = new Intent(getActivity(), TwitterActivity.class);
-			startActivity(intent);					
-		}
-		
-		super.onListItemClick(l, v, position, id);
-	}	
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        MoreRow row = ((MoreListAdapter) l.getAdapter()).getItem(position);
+        if (row.onClickListener != null) {
+            row.onClickListener.onClick(v);
+        }
+    }
 	
 	
 	@Override
