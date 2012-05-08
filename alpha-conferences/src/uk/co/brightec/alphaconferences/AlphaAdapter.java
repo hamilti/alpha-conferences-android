@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,35 +22,48 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 	private HashMap<String, Integer> alphaIndexer;
 	private String[] indexSections;  
 	
+	
 	public AlphaAdapter() {
 		mShowAlphaIndex = false;
 	}
+	
 	
 	@Override
 	public int getCount() {
 		return mRows.size();
 	}
 
+	
 	@Override
 	public Object getItem(int position) {
 		return mRows.get(position);
 	}
 
+	
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Cell row = mRows.get(position);
 		return row.getView(null);
 	}
 	
+	
 	@Override
 	public boolean areAllItemsEnabled() {
-		return false;
+		return true;
 	}
+	
+	
+	@Override
+	public boolean isEnabled(int position) {
+		return mRows.get(position).isEnabled();
+	}
+	
 	
 	/**
 	 * Set the adapter's data source sections
@@ -97,6 +109,7 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 		notifyDataSetChanged();
 	}
 	
+	
 	/**
 	 * Set the adapter's data source rows.
 	 * Use instead of setSections() when no sections are needed.
@@ -108,7 +121,8 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 		List<Section> sections = new ArrayList<Section>();
 		sections.add(section);
 		setSections(sections);
-	}		
+	}
+	
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -120,21 +134,25 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 			}
 		}
 	}
+	
 
 	@Override
 	public int getPositionForSection(int section) {
 		return alphaIndexer.get(indexSections[section]);
 	}
+	
 
 	@Override
 	public int getSectionForPosition(int position) {
 		return 0;
 	}
 
+	
 	@Override
 	public Object[] getSections() {
 		return indexSections;
 	}
+	
 	
 	public void showAlphaIndex(Boolean showIndex) {
 		mShowAlphaIndex = showIndex;

@@ -42,8 +42,6 @@ public class SpeakerDetailActivity extends SherlockListActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         
         AlphaAdapter adapter = new AlphaAdapter();
-        //getListView().setAdapter(adapter);
-        
         setListAdapter(adapter);
     }
     
@@ -81,10 +79,12 @@ public class SpeakerDetailActivity extends SherlockListActivity {
             };
         }
 
-        ButtonBarRow buttons = new ButtonBarRow(this);
-        buttons.setButton1("Website", websiteOnClick);
-        buttons.setButton2("Twitter", twitterOnClick);
-        rows.add(buttons);
+        if (websiteOnClick != null || twitterOnClick != null) {
+            ButtonBarRow buttons = new ButtonBarRow(this);
+            buttons.setButton1("Website", websiteOnClick);
+            buttons.setButton2("Twitter", twitterOnClick);
+            rows.add(buttons);			
+		}
 
         ((AlphaAdapter) getListAdapter()).setRows(rows, this);
     }

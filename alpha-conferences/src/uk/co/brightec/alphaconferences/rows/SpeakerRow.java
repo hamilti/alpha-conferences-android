@@ -26,6 +26,12 @@ public class SpeakerRow extends Row {
 	}
 	
 	
+    @Override
+    public Boolean isEnabled() {
+    	return true;
+    }
+	
+	
 	@Override
 	public View getView(View convertView) {
 		View rowView = convertView;
@@ -38,10 +44,14 @@ public class SpeakerRow extends Row {
 			rowView.setTag(holder);
 		}
 		
-		SpeakersViewHolder holder = (SpeakersViewHolder)rowView.getTag();			
+		SpeakersViewHolder holder = (SpeakersViewHolder)rowView.getTag();
+		
 		holder.speakerTextView.setText(speaker.displayName());
+		holder.speakerTextView.setVisibility((speaker.displayName() == null ? View.GONE : View.VISIBLE));
+		
 		holder.descriptionTextView.setText(speaker.position);
-
+		holder.descriptionTextView.setVisibility((speaker.position == null ? View.GONE : View.VISIBLE));
+		
 		Resource imageResource = new Resource(speaker.imageKey, Resource.Type.SpeakerImageSmall);
 		holder.imageView.setUrl(imageResource.url(), imageResource.cacheFilename());
 		

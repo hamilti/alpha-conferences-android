@@ -31,6 +31,6 @@ public class TwitterActivity extends SherlockActivity {
             return true;
         default:
             return super.onOptionsItemSelected(item);
-    }
+	    }
 	}
 }

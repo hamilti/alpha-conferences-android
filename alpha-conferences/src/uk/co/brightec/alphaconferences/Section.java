@@ -20,6 +20,13 @@ public class Section implements Cell {
 		mRows = rows;
 	}
 	
+	
+    @Override
+    public Boolean isEnabled() {
+    	return false;
+    }	
+	
+	
 	@Override
 	public View getView(View convertView) {
 		View rowView = convertView;

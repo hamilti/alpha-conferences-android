@@ -16,6 +16,12 @@ public class HTMLRow extends Row implements Cell {
 		super(context);
 		mHtml = html;
 	}
+	
+	
+    @Override
+    public Boolean isEnabled() {
+    	return false;
+    }	
 
 	
 	@Override

@@ -22,6 +22,12 @@ public class ProgrammeRow extends Row {
         mTime = time;
         mBarColour = barColour;
     }
+    
+    
+    @Override
+    public Boolean isEnabled() {
+    	return true;
+    }    
 
 
     @Override
@@ -40,10 +46,18 @@ public class ProgrammeRow extends Row {
 
         ProgrammeViewHolder holder = (ProgrammeViewHolder)rowView.getTag();
         holder.barColourView.setBackgroundColor(mBarColour);
+        
         holder.titleTextView.setText(mTitle);
+        holder.titleTextView.setVisibility((mTitle == null ? View.GONE : View.VISIBLE));
+        
         holder.subTitleTextView.setText(mVenue);
+        holder.subTitleTextView.setVisibility((mVenue == null ? View.GONE : View.VISIBLE));
+        
         holder.speakerNameTextView.setText(mSpeakerName);
+        holder.speakerNameTextView.setVisibility((mSpeakerName == null ? View.GONE : View.VISIBLE));
+        
         holder.timeTextView.setText(mTime);
+        holder.timeTextView.setVisibility((mTime == null ? View.GONE : View.VISIBLE));
 
         return rowView;
     }
