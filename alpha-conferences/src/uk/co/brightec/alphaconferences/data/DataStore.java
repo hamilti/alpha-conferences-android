@@ -98,4 +98,23 @@ public class DataStore {
     }
 
 
+    public static List<Venue> venues(Context context) {
+        List<Venue> result = new ArrayList<Venue>();
+        DBHelper h = null;
+        SQLiteDatabase db = null;
+        try {
+            h = new DBHelper(context);
+            db = h.getWritableDatabase();
+            List<JSONObject> entities = DBHelper.getEntities(db, "venues");
+            for (JSONObject j : entities) {
+                result.add(new Venue(j));
+            }
+        } finally {
+            if (db != null) db.close();
+            if (h != null) h.close();
+        }
+        return result;
+    }
+
+
 }
