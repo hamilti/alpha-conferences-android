@@ -109,6 +109,27 @@ public class DataStore {
     }
 
 
+    public static List<Session> sessionsForGroup(Context context, int sessionGroupId) {
+        List<Session> result = new ArrayList<Session>();
+        for (Session s : sessions(context)) {
+            if (s.sessionGroupId == sessionGroupId) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+
+    public static List<SessionGroup> sessionGroups(Context context) {
+        return entities(context, SessionGroup.class, "session_groups");
+    }
+
+
+    public static List<Stream> streams(Context context) {
+        return entities(context, Stream.class, "streams");
+    }
+
+
     public static List<Venue> venues(Context context) {
         List<Venue> result = new ArrayList<Venue>();
         DBHelper h = null;
