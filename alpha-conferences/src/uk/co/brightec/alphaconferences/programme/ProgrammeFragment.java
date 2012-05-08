@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
 import uk.co.brightec.alphaconferences.Page;
@@ -26,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,10 +76,6 @@ public class ProgrammeFragment extends SherlockListFragment {
     }
 
     private void setPage(int pageIndex) {
-
-        Log.v("CAKE", "pageIndex: " + pageIndex);
-        Log.v("CAKE", "mPageIndex: " + mPageIndex);
-
         prevButton.setEnabled(pageIndex > 0);
         nextButton.setEnabled(pageIndex < mPages.size()-1);
 
@@ -188,7 +181,8 @@ public class ProgrammeFragment extends SherlockListFragment {
                 
                 // sessions are sorted first by type (seminar slot first), then by start time
                 Collections.sort(sessionsInThisHour, new Comparator<Session>() {
-                    public int compare(Session a, Session b) {
+                    @Override
+					public int compare(Session a, Session b) {
                         if (a.type == Session.Type.SEMINAR_SLOT && b.type != Session.Type.SEMINAR_SLOT) {
                             return -1;
                         } else if (a.type != Session.Type.SEMINAR_SLOT && b.type == Session.Type.SEMINAR_SLOT) {

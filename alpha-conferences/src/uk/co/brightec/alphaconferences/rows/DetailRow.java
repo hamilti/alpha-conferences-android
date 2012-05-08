@@ -21,6 +21,12 @@ public class DetailRow extends Row implements Cell {
 		mSubTitle = subTitle;
 		mImageResource = imageResource;
 	}
+	
+	
+    @Override
+    public Boolean isEnabled() {
+    	return false;
+    }	
 
 	
 	@Override
@@ -36,9 +42,13 @@ public class DetailRow extends Row implements Cell {
 			rowView.setTag(holder);
 		}
 		
-		DetailViewHolder holder = (DetailViewHolder)rowView.getTag();			
+		DetailViewHolder holder = (DetailViewHolder)rowView.getTag();
+		
 		holder.titleTextView.setText(mTitle);
+		holder.titleTextView.setVisibility((mTitle == null ? View.GONE : View.VISIBLE));
+		
 		holder.subTitleTextView.setText(mSubTitle);
+		holder.subTitleTextView.setVisibility((mSubTitle == null ? View.GONE : View.VISIBLE));
 		
 		if (mImageResource != null) {
 		    holder.imageView.setUrl(mImageResource.url(), mImageResource.cacheFilename());
