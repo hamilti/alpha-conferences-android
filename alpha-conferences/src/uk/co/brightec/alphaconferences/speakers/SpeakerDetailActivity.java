@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
+import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Speaker;
@@ -81,8 +82,8 @@ public class SpeakerDetailActivity extends SherlockListActivity {
 
         if (websiteOnClick != null || twitterOnClick != null) {
             ButtonBarRow buttons = new ButtonBarRow(this);
-            buttons.setButton1("Website", websiteOnClick);
-            buttons.setButton2("Twitter", twitterOnClick);
+            buttons.setButton1(getString(R.string.website_button), websiteOnClick);
+            buttons.setButton2(getString(R.string.twiter_button), twitterOnClick);
             rows.add(buttons);			
 		}
 

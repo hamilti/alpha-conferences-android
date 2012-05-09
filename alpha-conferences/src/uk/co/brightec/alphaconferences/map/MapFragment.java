@@ -6,6 +6,7 @@ import java.util.List;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Venue;
+import uk.co.brightec.alphaconferences.speakers.SpeakerDetailActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,8 +51,15 @@ public class MapFragment extends SherlockListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
     	if (position == mVenues.size()) {
 			Intent intent = new Intent(getActivity(), VenueMapActivity.class);
-			startActivity(intent);				
+			startActivity(intent);		
 		}
+    	else {
+    		Venue venue = mVenues.get(position);
+
+    		Intent intent = new Intent(getActivity(), VenueDetailActivity.class);
+            intent.putExtra(VenueDetailActivity.VENUE_ID, venue.venueId);
+            startActivity(intent);	    		
+    	}
     	
     	super.onListItemClick(l, v, position, id);
     }   

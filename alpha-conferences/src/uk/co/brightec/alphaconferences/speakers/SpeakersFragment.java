@@ -49,16 +49,10 @@ public class SpeakersFragment extends SherlockListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-//		List<Section> sections = new ArrayList<Section>();
-//		Section section = new Section(null, rows, this.getActivity());
-//		sections.add(section);		
-		
+
         adapter = new AlphaAdapter();
         adapter.showAlphaIndex(true);
         setListAdapter(adapter);
-        
-        //populate();
 	}
 
 	
