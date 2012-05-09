@@ -51,4 +51,10 @@
     <style name="share_button" parent="android:Widget.Holo.Light.Button">
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="event_book_button" parent="android:Widget.Holo.Light.Button">
+        <item name="android:layout_margin">5dp</item>
+    </style>
+    <style name="event_text" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:layout_margin">10dp</item>
+    </style>
 </resources>

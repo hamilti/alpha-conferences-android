@@ -2,6 +2,7 @@ package uk.co.brightec.alphaconferences.more;
 
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.alerts.AlertsActivity;
+import uk.co.brightec.alphaconferences.events.EventsActivity;
 import uk.co.brightec.alphaconferences.faqs.FaqsActivity;
 import uk.co.brightec.alphaconferences.offers.OffersActivity;
 import uk.co.brightec.alphaconferences.rows.MoreRow;
@@ -61,6 +62,13 @@ public class MoreFragment extends SherlockListFragment {
 		MoreRow otherRow = new MoreRow();
 		otherRow.title = getString(R.string.other_events_menu_title);
 		otherRow.iconImageResource =  R.drawable.other_events;
+		otherRow.onClickListener = new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), EventsActivity.class);
+                v.getContext().startActivity(intent);				
+			}
+		};			
 		
 		MoreRow specialOffersRow = new MoreRow();
 		specialOffersRow.title = getString(R.string.special_offers_menu_title);

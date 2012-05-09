@@ -35,6 +35,8 @@
         <activity android:name=".page.PageActivity"></activity>
         <activity android:name=".faqs.FaqsActivity"></activity>
         <activity android:name=".offers.OffersActivity"></activity>
+        <activity android:name=".events.EventsActivity"></activity>
+        <activity android:name=".events.EventDetailActivity"></activity>
     </application>
     
 </manifest> 

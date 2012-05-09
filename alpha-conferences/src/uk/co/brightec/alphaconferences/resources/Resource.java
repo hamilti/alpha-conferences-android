@@ -6,7 +6,8 @@ public class Resource {
     public static enum Type {
         SpeakerImageSmall,
         VenueImageSmall,
-        VenueFloorplan
+        VenueFloorplan,
+        ConferenceImage
     }
 
     
@@ -29,6 +30,8 @@ public class Resource {
         	return baseUrl + "venues/"+key+"/200.jpg";
         case VenueFloorplan:
         	return baseUrl + "venues/"+key+".pdf";
+        case ConferenceImage:
+        	return baseUrl +  "branding/"+key+"/320.jpg";
         default:
             return null;
         }
