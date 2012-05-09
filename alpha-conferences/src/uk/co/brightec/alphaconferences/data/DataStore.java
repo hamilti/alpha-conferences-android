@@ -23,6 +23,12 @@ public class DataStore {
         return entity(context, Conference.class, "conference", Constants.CONFERENCE_ID);
     }
 
+    public static List<Conference> otherConferences(Context context) {
+        List<Conference> result = entities(context, Conference.class, "other_conferences");
+        Collections.sort(result);
+        return result;
+    }
+
 
     public static List<Speaker> speakers(Context context) {
         return entities(context, Speaker.class, "speakers");
