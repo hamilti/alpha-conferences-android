@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
+import uk.co.brightec.alphaconferences.Constants;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.data.Conference;
 import uk.co.brightec.alphaconferences.data.DataStore;
@@ -48,7 +49,7 @@ public class DonateActivity extends SherlockListActivity {
 
 
     private void populate() {
-        final Conference conference = DataStore.conference(this);
+        final Conference conference = DataStore.conference(this, Constants.CONFERENCE_ID);
 
         List<Row> rows = new ArrayList<Row>();
         rows.add(new HTMLRow(conference.donationDescription, this));
