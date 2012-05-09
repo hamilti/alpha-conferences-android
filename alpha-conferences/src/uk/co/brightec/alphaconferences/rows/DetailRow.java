@@ -25,7 +25,7 @@ public class DetailRow extends Row implements Cell {
 	
     @Override
     public Boolean isEnabled() {
-    	return false;
+    	return mClickListener != null;
     }	
 
 	
@@ -52,6 +52,10 @@ public class DetailRow extends Row implements Cell {
 		
 		if (mImageResource != null) {
 		    holder.imageView.setUrl(mImageResource.url(), mImageResource.cacheFilename());
+		    holder.imageView.setVisibility(View.VISIBLE);
+		}
+		else {
+			holder.imageView.setVisibility(View.GONE);
 		}
 		
 		return rowView;

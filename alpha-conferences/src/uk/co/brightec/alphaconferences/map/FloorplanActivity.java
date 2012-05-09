@@ -1,5 +1,7 @@
-package uk.co.brightec.alphaconferences;
+package uk.co.brightec.alphaconferences.map;
 
+import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.alphaconferences.R.string;
 import uk.co.brightec.alphaconferences.resources.Resource;
 import android.os.Bundle;
 import android.util.Log;

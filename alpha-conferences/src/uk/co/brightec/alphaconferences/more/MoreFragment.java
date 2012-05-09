@@ -1,6 +1,8 @@
 package uk.co.brightec.alphaconferences.more;
 
 import uk.co.brightec.alphaconferences.R;
+import uk.co.brightec.alphaconferences.alerts.AlertsActivity;
+import uk.co.brightec.alphaconferences.faqs.FaqsActivity;
 import uk.co.brightec.alphaconferences.rows.MoreRow;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,10 +38,24 @@ public class MoreFragment extends SherlockListFragment {
 		MoreRow alertRow = new MoreRow();
 		alertRow.title = getString(R.string.alerts_menu_title);
 		alertRow.iconImageResource =  R.drawable.alerts;
+		alertRow.onClickListener = new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), AlertsActivity.class);
+                v.getContext().startActivity(intent);				
+			}
+		};
 		
 		MoreRow faqsRow = new MoreRow();
 		faqsRow.title = getString(R.string.faqs_menu_title);
 		faqsRow.iconImageResource =  R.drawable.faqs;
+		faqsRow.onClickListener = new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), FaqsActivity.class);
+                v.getContext().startActivity(intent);				
+			}
+		};		
 		
 		MoreRow otherRow = new MoreRow();
 		otherRow.title = getString(R.string.other_events_menu_title);
