@@ -8,6 +8,8 @@ import uk.co.brightec.alphaconferences.resources.Resource;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,7 +28,7 @@ public class EventDetailActivity extends SherlockActivity {
 	    super.onCreate(savedInstanceState);
 	    
 	    int conferenceId = getIntent().getIntExtra(CONFERENCE_ID, 0);
-	    mConference = DataStore.conference(this); 
+	    mConference = DataStore.conference(this, conferenceId); 
 	    
         mActionBar = getSupportActionBar(); 
         mActionBar.setTitle(mConference.name);
@@ -38,10 +40,12 @@ public class EventDetailActivity extends SherlockActivity {
 	    TextView descriptionTextView = (TextView)findViewById(R.id.description);
 	    Button bookButton = (Button)findViewById(R.id.bookButton);
 	 
-	    Resource imageResource = new Resource(mConference.imageKey, Resource.Type.ConferenceImage);	    
+	    Resource imageResource = new Resource(mConference.imageKey, Resource.Type.ConferenceImage);
+	    Log.v("***", mConference.imageKey);
+	    Log.v("***", imageResource.url());
 	    imageView.setUrl(imageResource.url(), imageResource.cacheFilename());
 		
-		descriptionTextView.setText(mConference.text);
+		descriptionTextView.setText(Html.fromHtml(mConference.text));
 		
 		bookButton.setVisibility((mConference.bookingUrl.length() > 0? View.VISIBLE : View.GONE));
 		bookButton.setOnClickListener(new OnClickListener() {			

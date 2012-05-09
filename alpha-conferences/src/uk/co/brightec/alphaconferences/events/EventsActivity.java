@@ -35,7 +35,6 @@ public class EventsActivity extends SherlockListActivity {
 	
 	private void populate() {
 		List<Conference> conferences = DataStore.otherConferences(this);		
-		conferences.add(DataStore.conference(this));
 		
 		List<Row> rows = new ArrayList<Row>();
 		final Context context = this;

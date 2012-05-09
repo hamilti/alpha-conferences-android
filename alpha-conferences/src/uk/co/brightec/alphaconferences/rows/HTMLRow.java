@@ -5,6 +5,8 @@ import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import android.content.Context;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,6 +33,8 @@ public class HTMLRow extends Row implements Cell {
 			rowView = mInflater.inflate(R.layout.html_list_item, null);
 			
 			TextView htmlTextView = (TextView)rowView.findViewById(R.id.htmlTextView);
+			Linkify.addLinks(htmlTextView, Linkify.WEB_URLS);
+			htmlTextView.setMovementMethod(LinkMovementMethod.getInstance());
 			rowView.setTag(htmlTextView);
 		}
 		
