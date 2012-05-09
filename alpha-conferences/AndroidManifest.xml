@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="uk.co.brightec.alphaconferences"
+<manifest package="uk.co.brightec.alphaconferences"
       android:versionCode="1"
-      android:versionName="1.0">
+      android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="14" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,6 +28,8 @@
         <service android:name=".data.DownloadService"></service>
         <uses-library android:name="com.google.android.maps" android:required="true"/>
         <activity android:name=".map.VenueMapActivity"></activity>
+        <activity android:name=".map.VenueDetailActivity"></activity>
+        <activity android:name="FloorplanActivity"></activity>
     </application>
     
     

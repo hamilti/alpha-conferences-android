@@ -4,7 +4,9 @@ package uk.co.brightec.alphaconferences.resources;
 public class Resource {
 
     public static enum Type {
-        SpeakerImageSmall
+        SpeakerImageSmall,
+        VenueImageSmall,
+        VenueFloorplan
     }
 
     
@@ -18,9 +20,15 @@ public class Resource {
     
 
     public String url() {
+    	String baseUrl = "http://static.alpha.org/acs/conferences/";
+    	
         switch (type) {
         case SpeakerImageSmall:
-            return "http://static.alpha.org/acs/conferences/speakers/"+key+"/200.jpg";
+            return baseUrl + "speakers/"+key+"/200.jpg";
+        case VenueImageSmall:
+        	return baseUrl + "venues/"+key+"/200.jpg";
+        case VenueFloorplan:
+        	return baseUrl + "venues/"+key+".pdf";
         default:
             return null;
         }
