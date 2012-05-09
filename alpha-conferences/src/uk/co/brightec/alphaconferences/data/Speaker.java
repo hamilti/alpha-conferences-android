@@ -1,6 +1,13 @@
 package uk.co.brightec.alphaconferences.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import uk.co.brightec.util.JSON;
 
 
 public class Speaker implements Comparable<Speaker> {
@@ -11,26 +18,31 @@ public class Speaker implements Comparable<Speaker> {
     public final String biography;
     public final String position;
     public final String imageKey;
+    public final List<Integer> sessionIds = new ArrayList<Integer>();
     
     private final String firstName, lastName, alias, sortableName;
     
     
     Speaker(JSONObject o) {
         this.speakerId = o.optInt("id");
-        this.firstName = getString(o, "first_name");
-        this.lastName = getString(o, "last_name");
-        this.biography = getString(o, "biography");
-        this.position = getString(o, "position");
-        this.imageKey = getString(o, "image_key");
-        this.twitterUsername = getString(o, "twitter_username");
-        this.websiteUrl = getString(o, "website_url");
-        this.alias = getString(o, "alias");
+        this.firstName = JSON.getString(o, "first_name");
+        this.lastName = JSON.getString(o, "last_name");
+        this.biography = JSON.getString(o, "biography");
+        this.position = JSON.getString(o, "position");
+        this.imageKey = JSON.getString(o, "image_key");
+        this.twitterUsername = JSON.getString(o, "twitter_username");
+        this.websiteUrl = JSON.getString(o, "website_url");
+        this.alias = JSON.getString(o, "alias");
         this.sortableName = lastName+" "+firstName;
-    }
-
-    // TODO: move this somewhere generic
-    private static final String getString(JSONObject j, String name) {
-        return j.isNull(name) ? null : j.optString(name);
+        
+        try {
+            JSONArray a = o.getJSONArray("sessions");
+            for (int x=0; x<a.length(); x++) {
+                sessionIds.add(a.getInt(x));
+            }
+        } catch (JSONException e) {
+            // ignore
+        }
     }
     
     

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -128,7 +129,7 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Cell cell = mRows.get(position);
 		if (cell != null && cell instanceof Row) {
-			Row row = (Row)cell;
+		    Row row = (Row)cell;
 			if (row.onClickListener() != null) {
 				row.onClickListener().onRowClicked();
 			}

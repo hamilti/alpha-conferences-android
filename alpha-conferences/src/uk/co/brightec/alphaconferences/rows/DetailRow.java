@@ -25,7 +25,7 @@ public class DetailRow extends Row implements Cell {
 	
     @Override
     public Boolean isEnabled() {
-    	return false;
+    	return onClickListener() != null;
     }	
 
 	
