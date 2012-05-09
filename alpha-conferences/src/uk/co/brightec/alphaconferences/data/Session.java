@@ -1,11 +1,14 @@
 package uk.co.brightec.alphaconferences.data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import uk.co.brightec.alphaconferences.R;
@@ -40,6 +43,8 @@ public class Session {
     public final Type type;
     public final String name, text;
     public final LocalDateTime startDateTime, endDateTime;
+
+    public final List<Integer> speakerIds = new ArrayList<Integer>();
     
     
     Session(JSONObject o) {
@@ -53,6 +58,15 @@ public class Session {
         this.startDateTime = JSON.getLocalDateTime(o, "start_datetime", DateIntepretation.SECONDS_SINCE_1970, DateTimeZone.UTC);
         this.endDateTime = JSON.getLocalDateTime(o, "end_datetime", DateIntepretation.SECONDS_SINCE_1970, DateTimeZone.UTC);
         this.text = JSON.getString(o, "description");
+        
+        try {
+            JSONArray a = o.getJSONArray("speakers");
+            for (int x=0; x<a.length(); x++) {
+                speakerIds.add(a.getInt(x));
+            }
+        } catch (JSONException e) {
+            // ignore
+        }
     }
 
 

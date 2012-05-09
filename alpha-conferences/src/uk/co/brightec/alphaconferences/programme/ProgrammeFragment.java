@@ -168,10 +168,7 @@ public class ProgrammeFragment extends SherlockListFragment {
                     }
                     else if (session.type == Session.Type.SEMINAR_SLOT) {
                         // seminar slot
-                        String title = "Seminar options";
-                        String time = session.startDateTime.toString("HH:mm") + " - " + session.endDateTime.toString("HH:mm");
-                        int colorHex = session.type.color;
-                        ProgrammeRow row = new ProgrammeRow(title, null, null, time, colorHex, context);
+                        ProgrammeRow row = ProgrammeRow.createForSeminarSlot(session, context);
                         row.setOnClickListener(new Row.OnClickListener() {
                             public void onRowClicked() {
                                 Intent intent = new Intent(getActivity(), SeminarOptionsActivity.class);
@@ -183,10 +180,8 @@ public class ProgrammeFragment extends SherlockListFragment {
                     }
                     else {
                         // all other sessions
-                        String title = session.name;
-                        String time = session.startDateTime.toString("HH:mm") + " - " + session.endDateTime.toString("HH:mm");
-                        int color = session.type.color;
-                        rows.add(new ProgrammeRow(title, "Venue", "Speaker", time, color, context));
+                        ProgrammeRow row = ProgrammeRow.createForSession(session, context);
+                        rows.add(row);
                     }
                 }
 

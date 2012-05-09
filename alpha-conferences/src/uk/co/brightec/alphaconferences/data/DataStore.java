@@ -25,42 +25,11 @@ public class DataStore {
 
 
     public static List<Speaker> speakers(Context context) {
-        List<Speaker> result = new ArrayList<Speaker>();
-        DBHelper h = null;
-        SQLiteDatabase db = null;
-        try {
-            h = new DBHelper(context);
-            db = h.getWritableDatabase();
-
-            List<JSONObject> entities = DBHelper.getEntities(db, "speakers");
-            for (JSONObject j : entities) {
-                result.add(new Speaker(j));
-            }
-            
-        } finally {
-            if (db != null) db.close();
-            if (h != null) h.close();
-        }
-
-        Collections.sort(result);
-        return result;
+        return entities(context, Speaker.class, "speakers");
     }
-    
 
     public static Speaker speaker(Context context, int speakerId) {
-        DBHelper h = null;
-        SQLiteDatabase db = null;
-        try {
-            h = new DBHelper(context);
-            db = h.getWritableDatabase();
-
-            JSONObject j = DBHelper.getEntity(db, "speakers", speakerId);
-            return new Speaker(j);
-            
-        } finally {
-            if (db != null) db.close();
-            if (h != null) h.close();
-        }
+        return entity(context, Speaker.class, "speakers", speakerId);
     }
     
 
@@ -229,7 +198,9 @@ public class DataStore {
 
             try {
                 JSONObject j = DBHelper.getEntity(db, type, entityId);
-                result = c.getDeclaredConstructor(JSONObject.class).newInstance(j);
+                if (j != null) {
+                    result = c.getDeclaredConstructor(JSONObject.class).newInstance(j);
+                }
             } catch (IllegalArgumentException e) {
                 Log.e(TAG, "unexpected error", e);
             } catch (InstantiationException e) {
