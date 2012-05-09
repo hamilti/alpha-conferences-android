@@ -152,6 +152,10 @@ public class DataStore {
         return entity(context, Venue.class, "venues", venueId);
     }
 
+    public static Room room(Context context, int roomId) {
+        return entity(context, Room.class, "room", roomId);
+    }
+
 
     public static List<Alert> alerts(Context context) {
         return entities(context, Alert.class, "alerts");
