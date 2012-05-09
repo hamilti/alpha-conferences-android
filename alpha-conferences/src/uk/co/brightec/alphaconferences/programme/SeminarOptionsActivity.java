@@ -15,6 +15,7 @@ import uk.co.brightec.alphaconferences.data.Session;
 import uk.co.brightec.alphaconferences.data.Stream;
 import uk.co.brightec.alphaconferences.rows.ProgrammeRow;
 import uk.co.brightec.util.MultiValueMap;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -39,6 +40,7 @@ public class SeminarOptionsActivity extends SherlockListActivity {
 
         AlphaAdapter adapter = new AlphaAdapter();
         setListAdapter(adapter);
+        getListView().setOnItemClickListener(adapter);
     }
 
 
@@ -76,8 +78,15 @@ public class SeminarOptionsActivity extends SherlockListActivity {
         for (Stream stream : streamsSortedAlphabetically) {
             if (sessionsKeyedByStreamId.containsKey(stream.streamId)) {
                 List<Row> rows = new ArrayList<Row>();
-                for (Session session : sessionsKeyedByStreamId.get(stream.streamId)) {
+                for (final Session session : sessionsKeyedByStreamId.get(stream.streamId)) {
                     ProgrammeRow row = ProgrammeRow.createForSession(session, this);
+                    row.setOnClickListener(new Row.OnClickListener() {
+                        public void onRowClicked() {
+                            Intent intent = new Intent(SeminarOptionsActivity.this, SessionDetailActivity.class);
+                            intent.putExtra(SessionDetailActivity.EXTRA_SESSION_ID, session.sessionId);
+                            startActivity(intent);
+                        }
+                    });
                     rows.add(row);
                 }
                 sections.add(new Section(stream.name, rows, this));

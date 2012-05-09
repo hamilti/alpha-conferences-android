@@ -24,7 +24,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class SpeakerDetailActivity extends SherlockListActivity {
     
-    static final String EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID";
+    public static final String EXTRA_SPEAKER_ID = "EXTRA_SPEAKER_ID";
     
     private ActionBar mActionBar;
     private Speaker speaker;

@@ -25,6 +25,7 @@
         <activity android:name=".more.DonateActivity"></activity>
         <activity android:name=".speakers.SpeakerDetailActivity"></activity>
         <activity android:name=".programme.SeminarOptionsActivity"></activity>
+        <activity android:name=".programme.SessionDetailActivity"></activity>
         <service android:name=".data.DownloadService"></service>
         <uses-library android:name="com.google.android.maps" android:required="true"/>
         <activity android:name=".map.VenueMapActivity"></activity>

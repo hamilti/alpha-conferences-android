@@ -77,6 +77,10 @@ public class DataStore {
         return result;
     }
 
+    public static Session session(Context context, int sessionId) {
+        return entity(context, Session.class, "sessions", sessionId);
+    }
+
 
     public static List<Session> sessionsForGroup(Context context, int sessionGroupId) {
         List<Session> result = new ArrayList<Session>();
