@@ -43,7 +43,7 @@ public class EventsActivity extends SherlockListActivity {
 		for (final Conference conference : conferences) {
 						
 			String dateText = conference.startDate.toString(DATE_FORMAT);
-			if (conference.endDate != null) {
+			if (conference.endDate != null && (conference.endDate.compareTo(conference.startDate) > 0)) {
 				dateText += " - " + conference.endDate.toString(DATE_FORMAT);						
 			}			
 			
