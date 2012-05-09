@@ -1,5 +1,6 @@
 package uk.co.brightec.alphaconferences.map;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class VenueDetailActivity extends SherlockListActivity {
     	 OnClickListener viewMapOnClick = new View.OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-                String url = "http://maps.google.co.uk?q=" + mVenue.name + "@" + mVenue.latitude + "," + mVenue.longitude;
+                String url = "http://maps.google.co.uk?q=" + URLEncoder.encode(mVenue.name) + "@" + mVenue.latitude + "," + mVenue.longitude;
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));				
 			}
 		};
