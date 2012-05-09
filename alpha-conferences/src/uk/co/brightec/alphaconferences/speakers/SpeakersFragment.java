@@ -102,7 +102,7 @@ public class SpeakersFragment extends SherlockListFragment {
 	    }
         
 	    adapter.setSections(sections);
-	    adapter.notifyDataSetChanged();
+//	    adapter.notifyDataSetChanged(); // not needed as this is automatically done by the adapter
 	}
 
 	

@@ -17,6 +17,7 @@ import android.widget.SectionIndexer;
 
 public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, SectionIndexer {
 	private List<Cell> mRows = Collections.emptyList();
+	private Boolean mShowSeperators;
 	
 	// section indexer
 	private Boolean mShowAlphaIndex;
@@ -26,6 +27,7 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 	
 	public AlphaAdapter() {
 		mShowAlphaIndex = false;
+		mShowSeperators = true;
 	}
 	
 	
@@ -56,7 +58,7 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 	
 	@Override
 	public boolean areAllItemsEnabled() {
-		return true;
+		return mShowSeperators;
 	}
 	
 	
@@ -108,6 +110,10 @@ public class AlphaAdapter extends BaseAdapter implements OnItemClickListener, Se
 		}
 		
 		notifyDataSetChanged();
+	}
+	
+	public void showSeperators(Boolean showSeperators) {
+		mShowSeperators = showSeperators;
 	}
 	
 	

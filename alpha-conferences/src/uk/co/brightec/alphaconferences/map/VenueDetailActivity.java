@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
-import uk.co.brightec.alphaconferences.FloorplanActivity;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.data.DataStore;
