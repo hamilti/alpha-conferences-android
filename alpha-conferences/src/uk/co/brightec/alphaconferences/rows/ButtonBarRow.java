@@ -54,13 +54,13 @@ public class ButtonBarRow extends Row implements Cell {
         
         holder.button1.setText(button1Title);
         holder.button1.setOnClickListener(button1OnClickListener);
-//        holder.button1.setEnabled(button1OnClickListener != null);
-        holder.button1.setVisibility((button1OnClickListener == null ? View.GONE : View.VISIBLE));
+        holder.button1.setEnabled(button1OnClickListener != null);
+        holder.button1.setVisibility((button1Title == null ? View.GONE : View.VISIBLE));
         
         holder.button2.setText(button2Title);
         holder.button2.setOnClickListener(button2OnClickListener);
-//        holder.button2.setEnabled(button2OnClickListener != null);
-        holder.button2.setVisibility((button2OnClickListener == null ? View.GONE : View.VISIBLE));
+        holder.button2.setEnabled(button2OnClickListener != null);
+        holder.button2.setVisibility((button2Title == null ? View.GONE : View.VISIBLE));
         
         return rowView;
     }
