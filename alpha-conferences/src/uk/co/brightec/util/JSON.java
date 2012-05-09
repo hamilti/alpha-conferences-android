@@ -5,6 +5,8 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.json.JSONObject;
 
+import android.graphics.Color;
+
 
 public final class JSON {
     
@@ -30,6 +32,14 @@ public final class JSON {
             return j.isNull(name) ? null : new LocalDateTime(j.optLong(name) * 1000L, tz);
         default:
             throw new RuntimeException("unknown DateIntepretation");
+        }
+    }
+
+    public static final Integer getColor(JSONObject j, String name) {
+        try {
+            return Color.parseColor("#" + JSON.getString(j, "colour"));
+        } catch (Exception e) {
+            return null;
         }
     }
 
