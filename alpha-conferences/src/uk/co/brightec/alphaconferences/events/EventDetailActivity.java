@@ -28,7 +28,7 @@ public class EventDetailActivity extends SherlockActivity {
 	    super.onCreate(savedInstanceState);
 	    
 	    int conferenceId = getIntent().getIntExtra(CONFERENCE_ID, 0);
-	    mConference = DataStore.conference(this, conferenceId); 
+	    mConference = DataStore.otherConference(this, conferenceId); 
 	    
         mActionBar = getSupportActionBar(); 
         mActionBar.setTitle(mConference.name);
@@ -41,8 +41,6 @@ public class EventDetailActivity extends SherlockActivity {
 	    Button bookButton = (Button)findViewById(R.id.bookButton);
 	 
 	    Resource imageResource = new Resource(mConference.imageKey, Resource.Type.ConferenceImage);
-	    Log.v("***", mConference.imageKey);
-	    Log.v("***", imageResource.url());
 	    imageView.setUrl(imageResource.url(), imageResource.cacheFilename());
 		
 		descriptionTextView.setText(Html.fromHtml(mConference.text));
