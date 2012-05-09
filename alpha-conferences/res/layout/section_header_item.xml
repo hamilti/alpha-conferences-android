@@ -7,7 +7,7 @@
     <TextView
         android:id="@+id/headerTitle"
         style="@style/sectionHeader"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
