@@ -6,8 +6,10 @@ import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Room;
 import uk.co.brightec.alphaconferences.data.Session;
 import uk.co.brightec.alphaconferences.data.Speaker;
+import uk.co.brightec.alphaconferences.data.Stream;
 import uk.co.brightec.alphaconferences.data.Venue;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
@@ -46,7 +48,14 @@ public class ProgrammeRow extends Row {
         }
 
         r.mTime = s.startDateTime.toString("HH:mm") + " - " + s.endDateTime.toString("HH:mm");
-        r.mBarColour = s.type.color;
+        
+        Stream stream = DataStore.stream(context, s.streamId);
+        if (stream != null && stream.color != null) {
+            r.mBarColour = stream.color;
+        } else {
+            r.mBarColour = context.getResources().getColor(s.type.color);
+        }
+
         return r;
     }
 
