@@ -181,13 +181,15 @@ public class ProgrammeFragment extends SherlockListFragment {
                     else {
                         // all other sessions
                         ProgrammeRow row = ProgrammeRow.createForSession(session, context);
-                        row.setOnClickListener(new Row.OnClickListener() {
-                            public void onRowClicked() {
-                                Intent intent = new Intent(getActivity(), SessionDetailActivity.class);
-                                intent.putExtra(SessionDetailActivity.EXTRA_SESSION_ID, session.sessionId);
-                                startActivity(intent);
-                            }
-                        });
+                        if (session.type != Session.Type.ADMIN && session.type != Session.Type.BREAK) {
+                            row.setOnClickListener(new Row.OnClickListener() {
+                                public void onRowClicked() {
+                                    Intent intent = new Intent(getActivity(), SessionDetailActivity.class);
+                                    intent.putExtra(SessionDetailActivity.EXTRA_SESSION_ID, session.sessionId);
+                                    startActivity(intent);
+                                }
+                            });
+                        }
                         rows.add(row);
                     }
                 }

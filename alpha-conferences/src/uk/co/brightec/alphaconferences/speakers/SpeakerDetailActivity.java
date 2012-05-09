@@ -8,6 +8,7 @@ import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Speaker;
+import uk.co.brightec.alphaconferences.programme.SessionsBySpeakerActivity;
 import uk.co.brightec.alphaconferences.resources.Resource;
 import uk.co.brightec.alphaconferences.rows.ButtonBarRow;
 import uk.co.brightec.alphaconferences.rows.DetailRow;
@@ -15,6 +16,7 @@ import uk.co.brightec.alphaconferences.rows.HTMLRow;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -41,9 +43,10 @@ public class SpeakerDetailActivity extends SherlockListActivity {
         mActionBar = getSupportActionBar(); 
         mActionBar.setTitle(speaker.displayName());
         mActionBar.setDisplayHomeAsUpEnabled(true);
-        
+
         AlphaAdapter adapter = new AlphaAdapter();
         setListAdapter(adapter);
+        getListView().setOnItemClickListener(adapter);
     }
     
 
@@ -87,6 +90,16 @@ public class SpeakerDetailActivity extends SherlockListActivity {
             rows.add(buttons);			
 		}
 
+        DetailRow sessionsRow = new DetailRow("View their sessions", null, null, this);
+        sessionsRow.setOnClickListener(new Row.OnClickListener() {
+            public void onRowClicked() {
+                Intent intent = new Intent(SpeakerDetailActivity.this, SessionsBySpeakerActivity.class);
+                intent.putExtra(SessionsBySpeakerActivity.EXTRA_SPEAKER_ID, speaker.speakerId);
+                startActivity(intent);
+            }
+        });
+        rows.add(sessionsRow);
+        
         ((AlphaAdapter) getListAdapter()).setRows(rows, this);
     }
     

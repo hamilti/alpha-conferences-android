@@ -28,6 +28,9 @@
         <activity android:name=".speakers.SpeakerDetailActivity"></activity>
         <activity android:name=".programme.SeminarOptionsActivity"></activity>
         <activity android:name=".programme.SessionDetailActivity"></activity>
+        <activity android:name=".programme.SessionsBySpeakerActivity"></activity>
+        <service android:name=".data.DownloadService"></service>
+        <uses-library android:name="com.google.android.maps" android:required="true"/>
         <activity android:name=".map.VenueMapActivity"></activity>
         <activity android:name=".map.VenueDetailActivity"></activity>
         <activity android:name=".map.FloorplanActivity"></activity>
