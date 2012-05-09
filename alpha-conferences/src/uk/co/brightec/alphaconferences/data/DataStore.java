@@ -126,7 +126,7 @@ public class DataStore {
     }
 
     public static Room room(Context context, int roomId) {
-        return entity(context, Room.class, "room", roomId);
+        return entity(context, Room.class, "rooms", roomId);
     }
 
 
