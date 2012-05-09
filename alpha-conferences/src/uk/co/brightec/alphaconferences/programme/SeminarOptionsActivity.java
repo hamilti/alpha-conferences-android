@@ -77,9 +77,8 @@ public class SeminarOptionsActivity extends SherlockListActivity {
             if (sessionsKeyedByStreamId.containsKey(stream.streamId)) {
                 List<Row> rows = new ArrayList<Row>();
                 for (Session session : sessionsKeyedByStreamId.get(stream.streamId)) {
-                    String time = session.startDateTime.toString("HH:mm") + " - " + session.endDateTime.toString("HH:mm");
-                    int color = session.type.color;
-                    rows.add(new ProgrammeRow(session.name, "venue", "speaker", time, color, this));
+                    ProgrammeRow row = ProgrammeRow.createForSession(session, this);
+                    rows.add(row);
                 }
                 sections.add(new Section(stream.name, rows, this));
             }
