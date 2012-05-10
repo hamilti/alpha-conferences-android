@@ -37,24 +37,25 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@android:color/holo_blue_light</item>
+        <item name="android:background">#ff33b5e5</item>
         <item name="android:textStyle">bold</item>
     </style>        
-    <style name="PagerText" parent="android:Widget.Holo.Light.TextView">
+    <style name="PagerText" parent="android:Widget.TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>        
     </style>
-    <style name="HTMLListItemText" parent="android:Widget.Holo.Light.TextView">
+    <style name="HTMLListItemText" parent="android:Widget.TextView">
         <item name="android:textSize">16sp</item>
     </style>
-    <style name="share_button" parent="android:Widget.Holo.Light.Button">
+    <style name="share_button" parent="android:Widget.Button">
         <item name="android:textSize">14sp</item>
     </style>
-    <style name="event_book_button" parent="android:Widget.Holo.Light.Button">
+    <style name="event_book_button" parent="android:Widget.Button">
         <item name="android:layout_margin">5dp</item>
     </style>
-    <style name="event_text" parent="android:Widget.Holo.Light.TextView">
+    <style name="event_text" parent="android:Widget.TextView">
         <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">16sp</item>
     </style>
     <style name="pager">
         <item name="android:orientation">horizontal</item>
@@ -63,14 +64,17 @@
     <style name="pager_seperator_line">
         <item name="android:background">#cccccc</item>
     </style>
-	<style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+	<style name="ActionBar" parent="Widget.Sherlock.Light.ActionBar">
 		<item name="android:background">@drawable/actionbar_background</item>
+		<item name="background">@drawable/actionbar_background</item>
 		<item name="android:titleTextStyle">@style/actionbar_title_style</item>
+		<item name="titleTextStyle">@style/actionbar_title_style</item>
 	</style>
 	<style name="actionbar_title_style" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
 	    <item name="android:textColor">#ffffff</item>
 	</style>
 	<style name="AlphaTheme" parent="@style/Theme.Sherlock.Light">
 		<item name="android:actionBarStyle">@style/ActionBar</item>
+		<item name="actionBarStyle">@style/ActionBar</item>
 	</style>    
 </resources>
