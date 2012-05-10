@@ -28,7 +28,7 @@ public class EventDetailActivity extends SherlockActivity {
 	    super.onCreate(savedInstanceState);
 	    
 	    int conferenceId = getIntent().getIntExtra(CONFERENCE_ID, 0);
-	    mConference = DataStore.otherConference(this, conferenceId); 
+	    mConference = DataStore.conference(this, conferenceId);
 	    
         mActionBar = getSupportActionBar(); 
         mActionBar.setTitle(mConference.name);

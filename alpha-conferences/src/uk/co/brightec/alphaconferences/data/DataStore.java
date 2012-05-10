@@ -19,18 +19,18 @@ public class DataStore {
     private static final String TAG = "DataStore";
 
     
-    public static Conference conference(Context context) {
-        return entity(context, Conference.class, "conference", Constants.CONFERENCE_ID);
+    public static Conference conference(Context context, int conferenceId) {
+        if (conferenceId == Constants.CONFERENCE_ID) {
+            return entity(context, Conference.class, "conference", conferenceId);
+        } else {
+            return entity(context, Conference.class, "other_conferences", conferenceId);
+        }
     }
 
     public static List<Conference> otherConferences(Context context) {
         List<Conference> result = entities(context, Conference.class, "other_conferences");
         Collections.sort(result);
         return result;
-    }
-
-    public static Conference otherConference(Context context, int conferenceId) {
-        return entity(context, Conference.class, "other_conferences", conferenceId);
     }
 
 
