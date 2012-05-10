@@ -51,23 +51,32 @@ public class DownloadService extends IntentService {
             h = new DBHelper(this);
             db = h.getWritableDatabase();
 
-            Long lastUpdatedTime = DBHelper.getEntitiesUpdatedTime(db);
+            final Long lastUpdatedTime = DBHelper.getEntitiesUpdatedTime(db);
 
+            if (lastUpdatedTime == null) {
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Constants.SHOW_LOADING_MESSAGE_INTENT));
+            }
+            
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             df.setTimeZone(TimeZone.getTimeZone("UTC"));
             String timestamp = (lastUpdatedTime != null) ? df.format(new Date(lastUpdatedTime * 1000L)) : "0";
             String url = "http://acs.alpha.org/api/rest/v1/conferences/getObjects/" + Constants.CONFERENCE_ID + "/" + timestamp;
             JSONObject newData = fetch(url);
 
+            if (newData != null) {
+                populateDatabase(db, newData);
+            }
+            
+            if (lastUpdatedTime == null) {
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Constants.HIDE_LOADING_MESSAGE_INTENT));
+            }
+            
             if (newData == null && lastUpdatedTime == null) {
-                // got no data at all, inform the user of this
-                Toast.makeText(this, "Sorry, cannot could not be downloaded while offline.", Toast.LENGTH_LONG).show();  // TODO: do in main thread
+                // got no data at all
+                LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Constants.SHOW_OFFLINE_INTENT));
                 return;
             }
             
-            // if we get here we potentially have new data
-            populateDatabase(db, newData);
-
             // inform the user
             Log.d(TAG, "got updated data");
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(Constants.DATA_WAS_UPDATED_INTENT));

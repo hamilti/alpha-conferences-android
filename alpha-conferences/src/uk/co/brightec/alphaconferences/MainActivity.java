@@ -5,18 +5,60 @@ import uk.co.brightec.alphaconferences.map.MapFragment;
 import uk.co.brightec.alphaconferences.more.MoreFragment;
 import uk.co.brightec.alphaconferences.programme.ProgrammeFragment;
 import uk.co.brightec.alphaconferences.speakers.SpeakersFragment;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class MainActivity extends SherlockFragmentActivity {
-	
+
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        ProgressDialog progress = null;
+        
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Constants.SHOW_LOADING_MESSAGE_INTENT.equals(intent.getAction())) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        progress = new ProgressDialog(MainActivity.this);
+                        progress.setMessage("Please wait while content is downloaded.");
+                        progress.show();
+                    }
+                });
+            }
+            else if (Constants.HIDE_LOADING_MESSAGE_INTENT.equals(intent.getAction())) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        if (progress != null) {
+                            progress.hide();
+                            progress = null;
+                        }
+                    }
+                });
+            }
+            else if (Constants.SHOW_OFFLINE_INTENT.equals(intent.getAction())) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "Sorry, cannot could not be downloaded while offline", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }
+    };
+    
+    
 	private ActionBar mActionBar;
 	
 	@Override
@@ -123,7 +165,18 @@ public class MainActivity extends SherlockFragmentActivity {
     protected void onStart() {
         super.onStart();
         // trigger a refresh of the data
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.SHOW_LOADING_MESSAGE_INTENT);
+        intentFilter.addAction(Constants.HIDE_LOADING_MESSAGE_INTENT);
+        intentFilter.addAction(Constants.SHOW_OFFLINE_INTENT);
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, intentFilter);
         startService(new Intent(this, DownloadService.class));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
 }
