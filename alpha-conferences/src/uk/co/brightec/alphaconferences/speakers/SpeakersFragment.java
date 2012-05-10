@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ public class SpeakersFragment extends SherlockListFragment {
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("***", "SpeakersFragment.BroadcastReceiver onReceive");
             if (Constants.DATA_WAS_UPDATED_INTENT.equals(intent.getAction())) {
                 populate();
             }
@@ -122,11 +120,8 @@ public class SpeakersFragment extends SherlockListFragment {
 	@Override
 	public void onResume() {
         super.onResume();
+        populate();
 	    LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter(Constants.DATA_WAS_UPDATED_INTENT));
-	    
-	    // temporary workaround!
-        Context context = getActivity();
-        context.startService(new Intent(context, DownloadService.class));
 	}
 	
 	@Override

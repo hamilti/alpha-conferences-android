@@ -10,6 +10,7 @@ import java.util.Map;
 import org.joda.time.LocalDateTime;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
+import uk.co.brightec.alphaconferences.Constants;
 import uk.co.brightec.alphaconferences.Page;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
@@ -18,9 +19,13 @@ import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Day;
 import uk.co.brightec.alphaconferences.data.Session;
 import uk.co.brightec.alphaconferences.rows.ProgrammeRow;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +34,20 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 
+
 public class ProgrammeFragment extends SherlockListFragment {
+
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Constants.DATA_WAS_UPDATED_INTENT.equals(intent.getAction())) {
+                populate();
+            }
+        }
+    };
+
+
     private AlphaAdapter adapter;
     private List<Page> mPages;
     private int mPageIndex;
@@ -103,6 +121,7 @@ public class ProgrammeFragment extends SherlockListFragment {
     @Override
     public void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(receiver);
     }
 
 
@@ -110,6 +129,7 @@ public class ProgrammeFragment extends SherlockListFragment {
     public void onResume() {
         super.onResume();
         populate();
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter(Constants.DATA_WAS_UPDATED_INTENT));
     }
 
 

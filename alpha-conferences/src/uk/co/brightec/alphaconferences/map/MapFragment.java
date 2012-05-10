@@ -3,13 +3,16 @@ package uk.co.brightec.alphaconferences.map;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.brightec.alphaconferences.Constants;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Venue;
-import uk.co.brightec.alphaconferences.speakers.SpeakerDetailActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,18 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockListFragment;
 
 public class MapFragment extends SherlockListFragment {
+
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Constants.DATA_WAS_UPDATED_INTENT.equals(intent.getAction())) {
+                populate();
+            }
+        }
+    };
+
+
 	private List<Venue> mVenues;
 	
 
@@ -37,6 +52,7 @@ public class MapFragment extends SherlockListFragment {
 	@Override
 	public void onPause() {
 		super.onPause();
+        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(receiver);
 	}
 	
 	
@@ -44,6 +60,7 @@ public class MapFragment extends SherlockListFragment {
     public void onResume() {
         super.onResume();
         populate();
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter(Constants.DATA_WAS_UPDATED_INTENT));
     }	
 	
 

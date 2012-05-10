@@ -1,9 +1,11 @@
 package uk.co.brightec.alphaconferences;
 
+import uk.co.brightec.alphaconferences.data.DownloadService;
 import uk.co.brightec.alphaconferences.map.MapFragment;
 import uk.co.brightec.alphaconferences.more.MoreFragment;
 import uk.co.brightec.alphaconferences.programme.ProgrammeFragment;
 import uk.co.brightec.alphaconferences.speakers.SpeakersFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -125,4 +127,12 @@ public class MainActivity extends SherlockFragmentActivity {
 	        // User selected the already selected tab. Usually do nothing.
 	    }
 	}	
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // trigger a refresh of the data
+        startService(new Intent(this, DownloadService.class));
+    }
+
 }

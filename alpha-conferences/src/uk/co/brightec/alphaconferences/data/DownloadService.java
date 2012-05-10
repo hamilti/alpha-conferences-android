@@ -22,7 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import uk.co.brightec.alphaconferences.Constants;
+import android.app.Activity;
 import android.app.IntentService;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.LocalBroadcastManager;
@@ -55,7 +58,7 @@ public class DownloadService extends IntentService {
             String timestamp = (lastUpdatedTime != null) ? df.format(new Date(lastUpdatedTime * 1000L)) : "0";
             String url = "http://acs.alpha.org/api/rest/v1/conferences/getObjects/" + Constants.CONFERENCE_ID + "/" + timestamp;
             JSONObject newData = fetch(url);
-            
+
             if (newData == null && lastUpdatedTime == null) {
                 // got no data at all, inform the user of this
                 Toast.makeText(this, "Sorry, cannot could not be downloaded while offline.", Toast.LENGTH_LONG).show();  // TODO: do in main thread
