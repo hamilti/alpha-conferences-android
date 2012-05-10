@@ -83,7 +83,7 @@ public class MoreFragment extends SherlockListFragment {
 		
 		
 		MoreRow[] listItems  = {
-				twitterRow,
+				//twitterRow,
 				donateRow,
 				alertRow,
 				faqsRow,
