@@ -107,7 +107,8 @@ public class SessionDetailActivity extends SherlockListActivity {
                 @Override
                 public void onClick(View v) {
                     ProgrammeChoices.bookmarkSession(SessionDetailActivity.this, session);
-                    populate();
+                    setResult(RESULT_OK);
+                    finish();
                 }
             };
         }

@@ -36,6 +36,8 @@ import com.actionbarsherlock.app.SherlockListFragment;
 
 public class ProgrammeFragment extends SherlockListFragment {
 
+    private static final int REQUEST_SHOW_OPTIONS = 10;
+
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -193,7 +195,7 @@ public class ProgrammeFragment extends SherlockListFragment {
                             public void onRowClicked() {
                                 Intent intent = new Intent(getActivity(), SeminarOptionsActivity.class);
                                 intent.putExtra(SeminarOptionsActivity.EXTRA_SESSION_GROUP_ID, session.sessionGroupId);
-                                startActivity(intent);
+                                startActivityForResult(intent, REQUEST_SHOW_OPTIONS);
                             }
                         });
                         rows.add(row);
@@ -224,5 +226,14 @@ public class ProgrammeFragment extends SherlockListFragment {
 
         setPage(mPageIndex);
     }
+
+
+    @Override
+    public void onActivityResult(int request, int result, Intent data) {
+        if (request == REQUEST_SHOW_OPTIONS && result == SessionDetailActivity.RESULT_OK) {
+            populate();
+        }
+    }
+
 
 }

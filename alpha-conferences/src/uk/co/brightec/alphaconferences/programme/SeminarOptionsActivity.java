@@ -27,6 +27,8 @@ public class SeminarOptionsActivity extends SherlockListActivity {
 
     public static final String EXTRA_SESSION_GROUP_ID = "EXTRA_SESSION_GROUP_ID";
 
+    public static final int REQUEST_SHOW_DETAIL = 10;
+
     private ActionBar mActionBar;
 
 
@@ -84,7 +86,7 @@ public class SeminarOptionsActivity extends SherlockListActivity {
                         public void onRowClicked() {
                             Intent intent = new Intent(SeminarOptionsActivity.this, SessionDetailActivity.class);
                             intent.putExtra(SessionDetailActivity.EXTRA_SESSION_ID, session.sessionId);
-                            startActivity(intent);
+                            startActivityForResult(intent, REQUEST_SHOW_DETAIL);
                         }
                     });
                     rows.add(row);
@@ -108,5 +110,13 @@ public class SeminarOptionsActivity extends SherlockListActivity {
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int request, int result, Intent data) {
+        if (request == REQUEST_SHOW_DETAIL && result == SessionDetailActivity.RESULT_OK) {
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 
 }
