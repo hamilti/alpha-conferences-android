@@ -31,7 +31,7 @@ public class Resource {
         case VenueFloorplan:
         	return baseUrl + "venues/"+key+".pdf";
         case ConferenceImage:
-        	return baseUrl +  "branding/"+key+"/320.jpg";
+            return baseUrl +  "branding/"+key+"/288.jpg";
         default:
             return null;
         }

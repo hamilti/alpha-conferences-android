@@ -21,7 +21,7 @@ public class Conference implements Comparable<Conference> {
         this.text = JSON.getString(o, "description");
         this.startDate = JSON.getLocalDate(o, "start_date", JSON.DateIntepretation.SECONDS_SINCE_1970, DateTimeZone.UTC);
         this.endDate = JSON.getLocalDate(o, "end_date", JSON.DateIntepretation.SECONDS_SINCE_1970, DateTimeZone.UTC);
-        this.imageKey = JSON.getString(o, "imageKey");
+        this.imageKey = JSON.getString(o, "image_key");
         this.bookingUrl = JSON.getString(o, "booking_url");
         this.donationUrl = JSON.getString(o, "donation_url");
         this.donationDescription = JSON.getString(o, "donation_description");
