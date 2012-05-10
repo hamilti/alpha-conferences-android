@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,14 +166,14 @@ public class ProgrammeFragment extends SherlockListFragment {
                 List<Row> rows = new ArrayList<Row>();
                 List<Session> sessionsInThisHour = sessionsKeyedByHour.get(hour);
                 
-                // sessions are sorted first by type (seminar slot first), then by start time
+                // sessions are sorted first by type (seminar slot last), then by start time
                 Collections.sort(sessionsInThisHour, new Comparator<Session>() {
                     @Override
 					public int compare(Session a, Session b) {
                         if (a.type == Session.Type.SEMINAR_SLOT && b.type != Session.Type.SEMINAR_SLOT) {
-                            return -1;
-                        } else if (a.type != Session.Type.SEMINAR_SLOT && b.type == Session.Type.SEMINAR_SLOT) {
                             return 1;
+                        } else if (a.type != Session.Type.SEMINAR_SLOT && b.type == Session.Type.SEMINAR_SLOT) {
+                            return -1;
                         } else {
                             return a.startDateTime.compareTo(b.endDateTime);
                         }
@@ -183,12 +182,13 @@ public class ProgrammeFragment extends SherlockListFragment {
                 
                 for (final Session session : sessionsInThisHour) {
                     
-                    if (session.type == Session.Type.SEMINAR_OPTION) {
+                    if (session.type == Session.Type.SEMINAR_OPTION && !ProgrammeChoices.isSessionBookmarked(getActivity(), session)) {
                         // don't show seminars here
                     }
                     else if (session.type == Session.Type.SEMINAR_SLOT) {
                         // seminar slot
-                        ProgrammeRow row = ProgrammeRow.createForSeminarSlot(session, context);
+                        boolean existing = ProgrammeChoices.doesSessionGroupHaveBookmark(context, session.sessionGroupId);
+                        ProgrammeRow row = ProgrammeRow.createForSeminarSlot(session, existing, context);
                         row.setOnClickListener(new Row.OnClickListener() {
                             public void onRowClicked() {
                                 Intent intent = new Intent(getActivity(), SeminarOptionsActivity.class);

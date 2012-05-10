@@ -60,10 +60,9 @@ public class ProgrammeRow extends Row {
     }
 
 
-    public static ProgrammeRow createForSeminarSlot(Session s, Context context) {
+    public static ProgrammeRow createForSeminarSlot(Session s, boolean existing, Context context) {
         ProgrammeRow r = new ProgrammeRow(context);
-        r.mTitle = "Seminar options";
-        r.mTime = s.startDateTime.toString("HH:mm") + " - " + s.endDateTime.toString("HH:mm");
+        r.mTitle = existing ? "Change seminar choice" : "View seminar options";
         r.mBarColour = s.type.color;
         return r;
     }
