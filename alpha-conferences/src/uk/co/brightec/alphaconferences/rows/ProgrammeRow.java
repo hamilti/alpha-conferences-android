@@ -9,7 +9,6 @@ import uk.co.brightec.alphaconferences.data.Speaker;
 import uk.co.brightec.alphaconferences.data.Stream;
 import uk.co.brightec.alphaconferences.data.Venue;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
@@ -62,7 +61,7 @@ public class ProgrammeRow extends Row {
 
     public static ProgrammeRow createForSeminarSlot(Session s, boolean existing, Context context) {
         ProgrammeRow r = new ProgrammeRow(context);
-        r.mTitle = existing ? "Change seminar choice" : "View seminar options";
+        r.mTitle = existing ? context.getString(R.string.programme_change_seminar_choice) : context.getString(R.string.programme_view_seminar_options);
         r.mBarColour = s.type.color;
         return r;
     }

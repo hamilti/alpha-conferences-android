@@ -20,4 +20,8 @@
     <string name="speaker_sessions_title">Sessions</string>
     <string name="session_speakers_title">Speakers</string>
     <string name="venue_details_button_title">Venue Details</string>
+    <string name="session_bookmark_button_title">Bookmark</string>
+    <string name="session_bookmarked_button_title">Bookmarked</string>
+    <string name="programme_change_seminar_choice">Change seminar choice</string>
+    <string name="programme_view_seminar_options">View seminar options</string>
 </resources>

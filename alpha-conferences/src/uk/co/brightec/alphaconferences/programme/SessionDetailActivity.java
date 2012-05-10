@@ -101,7 +101,7 @@ public class SessionDetailActivity extends SherlockListActivity {
         }
         
         boolean bookmarked = ProgrammeChoices.isSessionBookmarked(this, session) || session.type == Session.Type.MAIN;
-        String bookmarkButtonTitle = bookmarked ? "Bookmarked" : "Bookmark";
+        String bookmarkButtonTitle = bookmarked ? getString(R.string.session_bookmarked_button_title) : getString(R.string.session_bookmark_button_title);
         OnClickListener bookmarkButtonHandler = null;
         if (!bookmarked && session.type == Session.Type.SEMINAR_OPTION) {
             bookmarkButtonHandler = new OnClickListener() {
@@ -116,7 +116,6 @@ public class SessionDetailActivity extends SherlockListActivity {
         
         ButtonBarRow buttons = new ButtonBarRow(this);
         buttons.setButton1(getString(R.string.venue_details_button_title), venueButtonHandler);
-        buttons.setButton1("Venue Details", venueButtonHandler);
         buttons.setButton2(bookmarkButtonTitle, bookmarkButtonHandler);
         detailRows.add(buttons);
         
