@@ -60,7 +60,7 @@ public class DonateActivity extends SherlockListActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+conference.donationTelephoneNumber));
-                    //intent.putExtra("sms_body", "HLCG12 £");
+                    //intent.putExtra("sms_body", "HLCG12");
                     startActivity(intent);
                 }
             };
