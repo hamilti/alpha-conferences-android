@@ -99,8 +99,22 @@ public class SessionDetailActivity extends SherlockListActivity {
             };
         }
         
+        boolean bookmarked = ProgrammeChoices.isSessionBookmarked(this, session) || session.type == Session.Type.MAIN;
+        String bookmarkButtonTitle = bookmarked ? "Bookmarked" : "Bookmark";
+        OnClickListener bookmarkButtonHandler = null;
+        if (!bookmarked && session.type == Session.Type.SEMINAR_OPTION) {
+            bookmarkButtonHandler = new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProgrammeChoices.bookmarkSession(SessionDetailActivity.this, session);
+                    populate();
+                }
+            };
+        }
+        
         ButtonBarRow buttons = new ButtonBarRow(this);
         buttons.setButton1("Venue Details", venueButtonHandler);
+        buttons.setButton2(bookmarkButtonTitle, bookmarkButtonHandler);
         detailRows.add(buttons);
         
         // description
