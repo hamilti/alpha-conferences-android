@@ -17,4 +17,7 @@
     <string name="floorplan_activity_title">Floorplan</string>
     <string name="event_book_button_title">Book online</string>
     <string name="about_menu_title">About this conference</string>
+    <string name="speaker_sessions_title">Sessions</string>
+    <string name="session_speakers_title">Speakers</string>
+    <string name="venue_details_button_title">Venue Details</string>
 </resources>

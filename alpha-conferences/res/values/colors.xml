@@ -8,4 +8,6 @@
     <color name="session_type_seminar_slot">#cccccc</color>
     <color name="session_type_break">#cccccc</color>
     <color name="session_type_admin">#cccccc</color>
+    <color name="fixed_section_header">#999999</color>
+    <color name="section_header">#33b5e5</color>    
 </resources>
