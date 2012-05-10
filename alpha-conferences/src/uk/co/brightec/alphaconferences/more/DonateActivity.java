@@ -49,7 +49,7 @@ public class DonateActivity extends SherlockListActivity {
 
 
     private void populate() {
-        final Conference conference = DataStore.conference(this);
+        final Conference conference = DataStore.conference(this, Constants.CONFERENCE_ID);
 
         List<Row> rows = new ArrayList<Row>();
         rows.add(new HTMLRow(conference.donationDescription, this));
