@@ -3,6 +3,6 @@
     <string name="home_tab">Home</string>
     <string name="speakers_tab">Speakers</string>
     <string name="programme_tab">Programme</string>
-    <string name="maps_tab">Maps</string>
+    <string name="maps_tab">Venues</string>
     <string name="more_tab">More</string>
 </resources>
