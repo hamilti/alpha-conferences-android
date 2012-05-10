@@ -16,4 +16,5 @@
     <string name="all_venues_action_bar_title">All venues</string>
     <string name="floorplan_activity_title">Floorplan</string>
     <string name="event_book_button_title">Book online</string>
+    <string name="about_menu_title">About this conference</string>
 </resources>

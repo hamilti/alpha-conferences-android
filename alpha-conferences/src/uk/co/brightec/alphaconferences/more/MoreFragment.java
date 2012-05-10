@@ -1,7 +1,9 @@
 package uk.co.brightec.alphaconferences.more;
 
+import uk.co.brightec.alphaconferences.Constants;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.alerts.AlertsActivity;
+import uk.co.brightec.alphaconferences.events.EventDetailActivity;
 import uk.co.brightec.alphaconferences.events.EventsActivity;
 import uk.co.brightec.alphaconferences.faqs.FaqsActivity;
 import uk.co.brightec.alphaconferences.offers.OffersActivity;
@@ -25,6 +27,18 @@ public class MoreFragment extends SherlockListFragment {
 		MoreRow twitterRow = new MoreRow();
 		twitterRow.title = getString(R.string.twitter_menu_title);
 		twitterRow.iconImageResource =  R.drawable.twitter;
+		
+		MoreRow aboutRow = new MoreRow();
+		aboutRow.title = getString(R.string.about_menu_title);		
+		aboutRow.iconImageResource = R.drawable.about;
+		aboutRow.onClickListener = new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+				intent.putExtra(EventDetailActivity.CONFERENCE_ID, Constants.CONFERENCE_ID);
+				startActivity(intent);				
+			}
+		};
 		
 		MoreRow donateRow = new MoreRow();
 		donateRow.title = getString(R.string.donate_menu_title);
@@ -84,6 +98,7 @@ public class MoreFragment extends SherlockListFragment {
 		
 		MoreRow[] listItems  = {
 				//twitterRow,
+				aboutRow,
 				donateRow,
 				alertRow,
 				faqsRow,
