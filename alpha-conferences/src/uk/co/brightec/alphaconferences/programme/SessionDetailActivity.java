@@ -13,6 +13,7 @@ import uk.co.brightec.alphaconferences.data.Room;
 import uk.co.brightec.alphaconferences.data.Session;
 import uk.co.brightec.alphaconferences.data.Speaker;
 import uk.co.brightec.alphaconferences.data.Venue;
+import uk.co.brightec.alphaconferences.map.VenueDetailActivity;
 import uk.co.brightec.alphaconferences.rows.ButtonBarRow;
 import uk.co.brightec.alphaconferences.rows.DetailRow;
 import uk.co.brightec.alphaconferences.rows.HTMLRow;
@@ -65,9 +66,12 @@ public class SessionDetailActivity extends SherlockListActivity {
         List<Row> speakerRows = new ArrayList<Row>();
         
         Room room = DataStore.room(this, session.roomId);
-        Venue venue = null;
+        final Venue venue;
         if (room != null) {
             venue = DataStore.venue(this, room.venueId);
+        }
+        else {
+        	venue = null;
         }
         
         // details
@@ -86,8 +90,11 @@ public class SessionDetailActivity extends SherlockListActivity {
         OnClickListener venueButtonHandler = null;
         if (venue != null) {
             venueButtonHandler = new OnClickListener() {
-                public void onClick(View v) {
-                    // TODO
+                @Override
+				public void onClick(View v) {
+            		Intent intent = new Intent(v.getContext(), VenueDetailActivity.class);
+                    intent.putExtra(VenueDetailActivity.VENUE_ID, venue.venueId);
+                    startActivity(intent);	
                 }
             };
         }
@@ -107,7 +114,8 @@ public class SessionDetailActivity extends SherlockListActivity {
             if (speaker != null) {
                 SpeakerRow row = new SpeakerRow(speaker, this);
                 row.setOnClickListener(new Row.OnClickListener() {
-                    public void onRowClicked() {
+                    @Override
+					public void onRowClicked() {
                         Intent intent = new Intent(SessionDetailActivity.this, SpeakerDetailActivity.class);
                         intent.putExtra(SpeakerDetailActivity.EXTRA_SPEAKER_ID, speaker.speakerId);
                         startActivity(intent);
