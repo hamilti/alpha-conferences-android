@@ -14,13 +14,11 @@ import android.widget.TextView;
 
 public class MoreListAdapter extends BaseAdapter {
     
-    private final Activity mActivity;
     private static LayoutInflater mInflater = null;
     private static MoreRow[] mListItems = null;
     
     
     public MoreListAdapter(Activity a, MoreRow[] listItems) {
-        mActivity = a;
         mInflater = (LayoutInflater)a.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mListItems = listItems;
     }

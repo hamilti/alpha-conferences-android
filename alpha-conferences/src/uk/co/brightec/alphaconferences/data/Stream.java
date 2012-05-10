@@ -2,8 +2,6 @@ package uk.co.brightec.alphaconferences.data;
 
 import org.json.JSONObject;
 
-import android.graphics.Color;
-
 import uk.co.brightec.util.JSON;
 
 

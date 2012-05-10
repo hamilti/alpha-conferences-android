@@ -18,7 +18,6 @@ import uk.co.brightec.util.MultiValueMap;
 import uk.co.brightec.util.ReadablePartialComparator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockListActivity;

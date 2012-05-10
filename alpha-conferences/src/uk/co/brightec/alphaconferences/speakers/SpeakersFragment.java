@@ -12,7 +12,6 @@ import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.Section;
 import uk.co.brightec.alphaconferences.data.DataStore;
-import uk.co.brightec.alphaconferences.data.DownloadService;
 import uk.co.brightec.alphaconferences.data.Speaker;
 import uk.co.brightec.alphaconferences.rows.SpeakerRow;
 import android.content.BroadcastReceiver;

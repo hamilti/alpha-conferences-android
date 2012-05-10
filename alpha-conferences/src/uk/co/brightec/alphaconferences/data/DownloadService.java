@@ -22,15 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import uk.co.brightec.alphaconferences.Constants;
-import android.app.Activity;
 import android.app.IntentService;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 
 public class DownloadService extends IntentService {

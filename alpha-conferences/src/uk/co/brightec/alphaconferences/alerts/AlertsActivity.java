@@ -14,7 +14,6 @@ import uk.co.brightec.alphaconferences.rows.DetailRow;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 
