@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.brightec.alphaconferences.Constants;
-import uk.co.brightec.alphaconferences.MainActivity;
 import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.data.DataStore;
 import uk.co.brightec.alphaconferences.data.Venue;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -19,9 +17,9 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockMapActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 
 public class VenueMapActivity extends SherlockMapActivity {
 	private ActionBar mActionBar;
@@ -59,17 +57,26 @@ public class VenueMapActivity extends SherlockMapActivity {
     
     private void populate() {
 		Context context = this;
+        double south = 90;
+        double north = -90;
+        double west = 180;
+        double east = -180;		
 		
 		List<Venue> mVenues = DataStore.venues(context);
         if (mVenues.isEmpty()) {
             return;
         }		
         
-        List<OverlayItem> overlayItems = new ArrayList<OverlayItem>();
+        List<VenueOverlayItem> overlayItems = new ArrayList<VenueOverlayItem>();
         for (Venue venue : mVenues) {
         	GeoPoint point = new GeoPoint((int)(venue.latitude *1E6), (int)(venue.longitude *1E6));
-        	OverlayItem overlayItem  = new OverlayItem(point, venue.name, venue.address());
-        	overlayItems.add(overlayItem);			
+        	VenueOverlayItem overlayItem  = new VenueOverlayItem(point, venue.name, venue.address(), venue.venueId);
+        	overlayItems.add(overlayItem);		
+        	
+        	south = Math.min(south, venue.latitude);
+        	north = Math.max(north, venue.latitude);
+        	west = Math.min(west, venue.longitude);
+        	east = Math.max(east, venue.longitude);
 		}    
         
         List<Overlay> mapOverlays = mMapView.getOverlays();
@@ -79,6 +86,19 @@ public class VenueMapActivity extends SherlockMapActivity {
         itemizedOverlay.addOverlayItems(overlayItems);    
         
         mapOverlays.add(itemizedOverlay);
+        
+        MapController mapController = mMapView.getController();
+        
+        // set centre point of map
+        int centerLat = (int)(((north + south) / 2) *1E6);
+        int centerLong = (int)(((east + west) / 2) *1E6);
+        mapController.setCenter(new GeoPoint(centerLat, centerLong));
+        
+        // zoom pan to accommodate overlays
+        int latSpan = (int)((Math.abs(north - ((north + south) / 2)) *3) *1E6);
+        int longSpan = (int)((Math.abs(east - ((east + west) / 2)) *3) *1E6);
+        		
+        mapController.zoomToSpan(latSpan, longSpan);        
     }
 	
     
@@ -88,17 +108,15 @@ public class VenueMapActivity extends SherlockMapActivity {
 	}
 	
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
         case android.R.id.home:
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finish();
             return true;
         default:
             return super.onOptionsItemSelected(item);
-	    }
-	}	
+        }
+    }	
 
 }

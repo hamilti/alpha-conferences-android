@@ -12,8 +12,6 @@ import android.support.v4.app.FragmentTransaction;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 
 public class MainActivity extends SherlockFragmentActivity {
 	
@@ -58,13 +56,6 @@ public class MainActivity extends SherlockFragmentActivity {
 	    	
 		}
     }  
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getSupportMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return true;
-	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
