@@ -37,7 +37,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">#ff33b5e5</item>
+        <item name="android:background">@color/section_header</item>
         <item name="android:textStyle">bold</item>
     </style>        
     <style name="PagerText" parent="android:Widget.TextView">

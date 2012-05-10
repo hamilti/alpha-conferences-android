@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import uk.co.brightec.alphaconferences.AlphaAdapter;
+import uk.co.brightec.alphaconferences.R;
 import uk.co.brightec.alphaconferences.Row;
 import uk.co.brightec.alphaconferences.Section;
 import uk.co.brightec.alphaconferences.data.DataStore;
@@ -114,6 +115,7 @@ public class SessionDetailActivity extends SherlockListActivity {
         }
         
         ButtonBarRow buttons = new ButtonBarRow(this);
+        buttons.setButton1(getString(R.string.venue_details_button_title), venueButtonHandler);
         buttons.setButton1("Venue Details", venueButtonHandler);
         buttons.setButton2(bookmarkButtonTitle, bookmarkButtonHandler);
         detailRows.add(buttons);
@@ -142,7 +144,9 @@ public class SessionDetailActivity extends SherlockListActivity {
 
         List<Section> sections = new ArrayList<Section>();
         sections.add(new Section(null, detailRows, this));
-        sections.add(new Section("Speakers", speakerRows, this));
+        Section speakersSection = new Section(getString(R.string.session_speakers_title), speakerRows, this);
+        speakersSection.mSectionBackgroundColourResource = R.color.fixed_section_header;
+        sections.add(speakersSection);
         ((AlphaAdapter) getListAdapter()).setSections(sections);
     }
     

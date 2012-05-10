@@ -12,12 +12,14 @@ public class Section implements Cell {
 	private final Context mContext;
 	private final String mTitle;
 	private final List<Row> mRows;
+	public int mSectionBackgroundColourResource; 
 	
 	public Section(String title, List<Row> rows, Context context) {
 		mContext = context;
 		mInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mTitle = title;
 		mRows = rows;
+		mSectionBackgroundColourResource = 0;
 	}
 	
 	
@@ -38,6 +40,13 @@ public class Section implements Cell {
 		
 		TextView titleTextView = (TextView)rowView.getTag();			
 		titleTextView.setText(mTitle);
+		
+		if (mSectionBackgroundColourResource > 0) {
+			titleTextView.setBackgroundResource(mSectionBackgroundColourResource);
+		}
+		else {
+			titleTextView.setBackgroundResource(R.color.section_header);
+		}
 		
 		return rowView;
 	}
