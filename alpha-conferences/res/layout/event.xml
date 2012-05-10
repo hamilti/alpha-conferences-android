@@ -18,8 +18,7 @@
             android:id="@+id/description"
             style="@style/event_text"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/bookButton"
