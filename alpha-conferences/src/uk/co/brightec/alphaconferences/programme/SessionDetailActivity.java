@@ -72,7 +72,7 @@ public class SessionDetailActivity extends SherlockListActivity {
             venue = DataStore.venue(this, room.venueId);
         }
         else {
-        	venue = null;
+            venue = null;
         }
         
         // details
@@ -92,10 +92,10 @@ public class SessionDetailActivity extends SherlockListActivity {
         if (venue != null) {
             venueButtonHandler = new OnClickListener() {
                 @Override
-				public void onClick(View v) {
-            		Intent intent = new Intent(v.getContext(), VenueDetailActivity.class);
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), VenueDetailActivity.class);
                     intent.putExtra(VenueDetailActivity.VENUE_ID, venue.venueId);
-                    startActivity(intent);	
+                    startActivity(intent);    
                 }
             };
         }
@@ -131,7 +131,7 @@ public class SessionDetailActivity extends SherlockListActivity {
                 SpeakerRow row = new SpeakerRow(speaker, this);
                 row.setOnClickListener(new Row.OnClickListener() {
                     @Override
-					public void onRowClicked() {
+                    public void onRowClicked() {
                         Intent intent = new Intent(SessionDetailActivity.this, SpeakerDetailActivity.class);
                         intent.putExtra(SpeakerDetailActivity.EXTRA_SPEAKER_ID, speaker.speakerId);
                         startActivity(intent);

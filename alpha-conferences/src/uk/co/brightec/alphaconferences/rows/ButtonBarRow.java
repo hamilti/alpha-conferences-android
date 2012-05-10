@@ -68,7 +68,7 @@ public class ButtonBarRow extends Row implements Cell {
     
     @Override
     public Boolean isEnabled() {
-    	return false;
+        return false;
     }
     
 }

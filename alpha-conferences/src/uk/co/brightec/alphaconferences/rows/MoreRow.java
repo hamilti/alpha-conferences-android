@@ -5,8 +5,8 @@ import android.view.View.OnClickListener;
 
 public class MoreRow {
 
-	public String title;
-	public Integer iconImageResource;
-	public OnClickListener onClickListener;
+    public String title;
+    public Integer iconImageResource;
+    public OnClickListener onClickListener;
 
 }

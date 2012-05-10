@@ -22,62 +22,62 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 
 public class VenueMapActivity extends SherlockMapActivity {
-	private ActionBar mActionBar;
-	private MapView mMapView;	
-	
-	@Override
-	protected void onCreate(Bundle icicle) {
-		super.onCreate(icicle);
+    private ActionBar mActionBar;
+    private MapView mMapView;    
+    
+    @Override
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
 
-		LinearLayout layout = new LinearLayout(this);
-		layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		layout.setOrientation(LinearLayout.VERTICAL);
-		
-		mMapView = new MapView(this, Constants.mapsAPIKey);
-		mMapView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-		mMapView.setBuiltInZoomControls(true);
-		mMapView.setEnabled(true);
-		mMapView.setClickable(true);
-		layout.addView(mMapView);
-		
-		setContentView(layout);
-		
-	    mActionBar = getSupportActionBar();	
-	    mActionBar.setTitle(getString(R.string.all_venues_action_bar_title));
-	    mActionBar.setDisplayHomeAsUpEnabled(true);		
-	}
-	
-	
+        LinearLayout layout = new LinearLayout(this);
+        layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        layout.setOrientation(LinearLayout.VERTICAL);
+        
+        mMapView = new MapView(this, Constants.mapsAPIKey);
+        mMapView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        mMapView.setBuiltInZoomControls(true);
+        mMapView.setEnabled(true);
+        mMapView.setClickable(true);
+        layout.addView(mMapView);
+        
+        setContentView(layout);
+        
+        mActionBar = getSupportActionBar();    
+        mActionBar.setTitle(getString(R.string.all_venues_action_bar_title));
+        mActionBar.setDisplayHomeAsUpEnabled(true);        
+    }
+    
+    
     @Override
     public void onResume() {
         super.onResume();
         populate();
-    }	
+    }    
     
     
     private void populate() {
-		Context context = this;
+        Context context = this;
         double south = 90;
         double north = -90;
         double west = 180;
-        double east = -180;		
-		
-		List<Venue> mVenues = DataStore.venues(context);
+        double east = -180;        
+        
+        List<Venue> mVenues = DataStore.venues(context);
         if (mVenues.isEmpty()) {
             return;
-        }		
+        }        
         
         List<VenueOverlayItem> overlayItems = new ArrayList<VenueOverlayItem>();
         for (Venue venue : mVenues) {
-        	GeoPoint point = new GeoPoint((int)(venue.latitude *1E6), (int)(venue.longitude *1E6));
-        	VenueOverlayItem overlayItem  = new VenueOverlayItem(point, venue.name, venue.address(), venue.venueId);
-        	overlayItems.add(overlayItem);		
-        	
-        	south = Math.min(south, venue.latitude);
-        	north = Math.max(north, venue.latitude);
-        	west = Math.min(west, venue.longitude);
-        	east = Math.max(east, venue.longitude);
-		}    
+            GeoPoint point = new GeoPoint((int)(venue.latitude *1E6), (int)(venue.longitude *1E6));
+            VenueOverlayItem overlayItem  = new VenueOverlayItem(point, venue.name, venue.address(), venue.venueId);
+            overlayItems.add(overlayItem);        
+            
+            south = Math.min(south, venue.latitude);
+            north = Math.max(north, venue.latitude);
+            west = Math.min(west, venue.longitude);
+            east = Math.max(east, venue.longitude);
+        }    
         
         List<Overlay> mapOverlays = mMapView.getOverlays();
         
@@ -97,17 +97,17 @@ public class VenueMapActivity extends SherlockMapActivity {
         // zoom pan to accommodate overlays
         int latSpan = (int)((Math.abs(north - ((north + south) / 2)) *3) *1E6);
         int longSpan = (int)((Math.abs(east - ((east + west) / 2)) *3) *1E6);
-        		
+                
         mapController.zoomToSpan(latSpan, longSpan);        
     }
-	
     
-	@Override
-	protected boolean isRouteDisplayed() {
-		return false;
-	}
-	
-	
+    
+    @Override
+    protected boolean isRouteDisplayed() {
+        return false;
+    }
+    
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -117,6 +117,6 @@ public class VenueMapActivity extends SherlockMapActivity {
         default:
             return super.onOptionsItemSelected(item);
         }
-    }	
+    }    
 
 }

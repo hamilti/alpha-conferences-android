@@ -26,17 +26,17 @@ import com.actionbarsherlock.view.MenuItem;
 
 
 public class VenueDetailActivity extends SherlockListActivity {
-	
-	public static final String VENUE_ID = "VENUE_ID";
-	
-	private ActionBar mActionBar;
-	private Venue mVenue;
+    
+    public static final String VENUE_ID = "VENUE_ID";
+    
+    private ActionBar mActionBar;
+    private Venue mVenue;
 
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
         int venueId = getIntent().getIntExtra(VENUE_ID, 0);
         mVenue = DataStore.venue(this, venueId);
         
@@ -45,44 +45,44 @@ public class VenueDetailActivity extends SherlockListActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         
         AlphaAdapter adapter = new AlphaAdapter();
-        setListAdapter(adapter);						
-	}
-	
-	
+        setListAdapter(adapter);                        
+    }
+    
+    
     @Override
     protected void onResume() {
         super.onResume();
         populate();
-    }	
-	
+    }    
+    
     
     private void populate() {
-    	final Context context = this;
-    	
-    	 List<Row> rows = new ArrayList<Row>();    	 
-    	 rows.add(new DetailRow(mVenue.name, mVenue.address(), new Resource(mVenue.imageKey, Resource.Type.VenueImageSmall), this));
-    	 
-    	 OnClickListener viewMapOnClick = new View.OnClickListener() {			
-			@Override
-			public void onClick(View v) {
+        final Context context = this;
+        
+         List<Row> rows = new ArrayList<Row>();         
+         rows.add(new DetailRow(mVenue.name, mVenue.address(), new Resource(mVenue.imageKey, Resource.Type.VenueImageSmall), this));
+         
+         OnClickListener viewMapOnClick = new View.OnClickListener() {            
+            @Override
+            public void onClick(View v) {
                 String url = "http://maps.google.co.uk?q=" + URLEncoder.encode(mVenue.name) + "@" + mVenue.latitude + "," + mVenue.longitude;
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));				
-			}
-		};
-		
-		OnClickListener viewFloorplanOnClick = new View.OnClickListener() {			
-			@Override
-			public void onClick(View v) {				
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));                
+            }
+        };
+        
+        OnClickListener viewFloorplanOnClick = new View.OnClickListener() {            
+            @Override
+            public void onClick(View v) {                
                 Intent intent = new Intent(context, FloorplanActivity.class);
                 intent.putExtra(FloorplanActivity.FLOORPLAN_KEY, mVenue.floorplanKey);
                 context.startActivity(intent);
-			}
-		};
-		
+            }
+        };
+        
         ButtonBarRow buttons = new ButtonBarRow(this);
         buttons.setButton1(getString(R.string.map_button_title), viewMapOnClick);
         buttons.setButton2(getString(R.string.floorplan_button_title), viewFloorplanOnClick);
-        rows.add(buttons);	
+        rows.add(buttons);    
         
         rows.add(new HTMLRow(mVenue.details, this));
         

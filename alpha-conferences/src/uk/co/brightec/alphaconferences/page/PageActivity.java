@@ -15,19 +15,19 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class PageActivity extends SherlockListActivity {
 
-	public static final String TITLE = "TITLE";
-	public static final String BODY = "BODY";
-	
-	private ActionBar mActionBar;
-	AlphaAdapter mAdapter;
-	
-	private String mTitle;
-	private String mBody;
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    
+    public static final String TITLE = "TITLE";
+    public static final String BODY = "BODY";
+    
+    private ActionBar mActionBar;
+    AlphaAdapter mAdapter;
+    
+    private String mTitle;
+    private String mBody;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
         mTitle = getIntent().getStringExtra(TITLE);
         mBody = getIntent().getStringExtra(BODY);
         
@@ -37,27 +37,27 @@ public class PageActivity extends SherlockListActivity {
         
         mAdapter = new AlphaAdapter();
         mAdapter.showSeperators(false);
-        setListAdapter(mAdapter);	    
-	}
-	
-	
+        setListAdapter(mAdapter);        
+    }
+    
+    
     @Override
     protected void onResume() {
         super.onResume();
         populate();
-    }	
+    }    
 
     
     private void populate() {
-    	List<Row> rows = new ArrayList<Row>();
-    	
-    	Row detailRow = new DetailRow(mTitle, null, null, this);
-    	rows.add(detailRow);
-    	
-    	Row htmlRow = new HTMLRow(mBody, this);
-    	rows.add(htmlRow);
-    	
-    	mAdapter.setRows(rows, this);
+        List<Row> rows = new ArrayList<Row>();
+        
+        Row detailRow = new DetailRow(mTitle, null, null, this);
+        rows.add(detailRow);
+        
+        Row htmlRow = new HTMLRow(mBody, this);
+        rows.add(htmlRow);
+        
+        mAdapter.setRows(rows, this);
     }
     
     

@@ -58,7 +58,7 @@ public class DonateActivity extends SherlockListActivity {
         if (StringUtils.isNotBlank(conference.donationTelephoneNumber)) {
             donateBySmsHandler = new OnClickListener() {
                 @Override
-				public void onClick(View v) {
+                public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+conference.donationTelephoneNumber));
                     //intent.putExtra("sms_body", "HLCG12 £");
                     startActivity(intent);
@@ -70,7 +70,7 @@ public class DonateActivity extends SherlockListActivity {
         if (StringUtils.isNotBlank(conference.donationUrl)) {
             donateOnlineHandler = new View.OnClickListener() {
                 @Override
-				public void onClick(View v) {
+                public void onClick(View v) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(conference.donationUrl)));
                 }
             };

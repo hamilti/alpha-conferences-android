@@ -95,8 +95,8 @@ public class SpeakerDetailActivity extends SherlockListActivity {
             ButtonBarRow buttons = new ButtonBarRow(this);
             buttons.setButton1(getString(R.string.website_button), websiteOnClick);
             buttons.setButton2(getString(R.string.twiter_button), twitterOnClick);
-            rows.add(buttons);			
-		}
+            rows.add(buttons);            
+        }
 
 //        DetailRow sessionsRow = new DetailRow("View their sessions", null, null, this);
 //        sessionsRow.setOnClickListener(new Row.OnClickListener() {
@@ -119,7 +119,7 @@ public class SpeakerDetailActivity extends SherlockListActivity {
     }
     
     private List<Section> getSessionsForSpeaker(Speaker speaker) {
-    	
+        
         List<Day> days = DataStore.days(this);
         
         MultiValueMap<Integer,Session> sessionsKeyedByDayId = new MultiValueMap<Integer,Session>();
@@ -139,7 +139,7 @@ public class SpeakerDetailActivity extends SherlockListActivity {
             List<Session> sortedSessionsForDay = new ArrayList<Session>(sessionsForDay);
             Collections.sort(sortedSessionsForDay, new Comparator<Session>() {
                 @Override
-				public int compare(Session a, Session b) {
+                public int compare(Session a, Session b) {
                     return ReadablePartialComparator.NULLS_FIRST.compare(a.startDateTime, b.startDateTime);
                 }
             });
@@ -149,7 +149,7 @@ public class SpeakerDetailActivity extends SherlockListActivity {
                 ProgrammeRow row = ProgrammeRow.createForSession(session, this);
                 row.setOnClickListener(new Row.OnClickListener() {
                     @Override
-					public void onRowClicked() {
+                    public void onRowClicked() {
                         Intent intent = new Intent(SpeakerDetailActivity.this, SessionDetailActivity.class);
                         intent.putExtra(SessionDetailActivity.EXTRA_SESSION_ID, session.sessionId);
                         startActivity(intent);

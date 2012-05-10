@@ -21,15 +21,15 @@ public class Resource {
     
 
     public String url() {
-    	String baseUrl = "http://static.alpha.org/acs/conferences/";
-    	
+        String baseUrl = "http://static.alpha.org/acs/conferences/";
+        
         switch (type) {
         case SpeakerImageSmall:
             return baseUrl + "speakers/"+key+"/200.jpg";
         case VenueImageSmall:
-        	return baseUrl + "venues/"+key+"/200.jpg";
+            return baseUrl + "venues/"+key+"/200.jpg";
         case VenueFloorplan:
-        	return baseUrl + "venues/"+key+".pdf";
+            return baseUrl + "venues/"+key+".pdf";
         case ConferenceImage:
             return baseUrl +  "branding/"+key+"/288.jpg";
         default:

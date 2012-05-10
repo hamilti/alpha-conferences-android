@@ -171,7 +171,7 @@ public class ProgrammeFragment extends SherlockListFragment {
                 // sessions are sorted first by type (seminar slot last), then by start time
                 Collections.sort(sessionsInThisHour, new Comparator<Session>() {
                     @Override
-					public int compare(Session a, Session b) {
+                    public int compare(Session a, Session b) {
                         if (a.type == Session.Type.SEMINAR_SLOT && b.type != Session.Type.SEMINAR_SLOT) {
                             return 1;
                         } else if (a.type != Session.Type.SEMINAR_SLOT && b.type == Session.Type.SEMINAR_SLOT) {

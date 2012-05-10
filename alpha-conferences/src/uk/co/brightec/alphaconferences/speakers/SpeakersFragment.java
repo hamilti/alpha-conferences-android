@@ -41,51 +41,51 @@ public class SpeakersFragment extends SherlockListFragment {
     };
 
     
-	private AlphaAdapter adapter;
+    private AlphaAdapter adapter;
 
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         adapter = new AlphaAdapter();
         adapter.showAlphaIndex(true);
         setListAdapter(adapter);
-	}
+    }
 
-	
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-	    super.onViewCreated(view, savedInstanceState);
-	    getListView().setOnItemClickListener(adapter);
-	}
-	
-	
-	private void populate() {
-	    final Context context = getActivity();
-	    
-	    Map<String,List<Speaker>> speakersKeyedByLetter = new HashMap<String,List<Speaker>>();
-	    List<Speaker> allSpeakers = DataStore.speakers(context);
-	    for (Speaker s : allSpeakers) {
-	        String key = s.indexLetter();
-	        List<Speaker> l = speakersKeyedByLetter.get(key);
-	        if (l == null) {
-	            l = new ArrayList<Speaker>();
-	            speakersKeyedByLetter.put(key, l);
-	        }
-	        l.add(s);
-	    }
     
-	    List<String> sortedKeys = new ArrayList<String>(speakersKeyedByLetter.keySet());
-	    Collections.sort(sortedKeys);
-	    
-	    List<Section> sections = new ArrayList<Section>();
-	    for (String key : sortedKeys) {
-	        List<Row> rows = new ArrayList<Row>();
-	        for (final Speaker s : speakersKeyedByLetter.get(key)) {
-	            SpeakerRow row = new SpeakerRow(s, context);
-	            
-	            row.setOnClickListener(new Row.OnClickListener() {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getListView().setOnItemClickListener(adapter);
+    }
+    
+    
+    private void populate() {
+        final Context context = getActivity();
+        
+        Map<String,List<Speaker>> speakersKeyedByLetter = new HashMap<String,List<Speaker>>();
+        List<Speaker> allSpeakers = DataStore.speakers(context);
+        for (Speaker s : allSpeakers) {
+            String key = s.indexLetter();
+            List<Speaker> l = speakersKeyedByLetter.get(key);
+            if (l == null) {
+                l = new ArrayList<Speaker>();
+                speakersKeyedByLetter.put(key, l);
+            }
+            l.add(s);
+        }
+    
+        List<String> sortedKeys = new ArrayList<String>(speakersKeyedByLetter.keySet());
+        Collections.sort(sortedKeys);
+        
+        List<Section> sections = new ArrayList<Section>();
+        for (String key : sortedKeys) {
+            List<Row> rows = new ArrayList<Row>();
+            for (final Speaker s : speakersKeyedByLetter.get(key)) {
+                SpeakerRow row = new SpeakerRow(s, context);
+                
+                row.setOnClickListener(new Row.OnClickListener() {
                     @Override
                     public void onRowClicked() {
                         Intent intent = new Intent(context, SpeakerDetailActivity.class);
@@ -93,42 +93,42 @@ public class SpeakersFragment extends SherlockListFragment {
                         context.startActivity(intent);
                     }
                 });
-	            
-	            rows.add(row);
-	        }
-	        sections.add(new Section(key, rows, context));
-	    }
+                
+                rows.add(row);
+            }
+            sections.add(new Section(key, rows, context));
+        }
         
-	    adapter.setSections(sections);
-//	    adapter.notifyDataSetChanged(); // not needed as this is automatically done by the adapter
-	}
+        adapter.setSections(sections);
+//        adapter.notifyDataSetChanged(); // not needed as this is automatically done by the adapter
+    }
 
-	
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.list, container, false);
-	}
+    
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.list, container, false);
+    }
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        
         getListView().setFastScrollEnabled(true);
-	}
-	
-	@Override
-	public void onResume() {
+    }
+    
+    @Override
+    public void onResume() {
         super.onResume();
         populate();
-	    LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter(Constants.DATA_WAS_UPDATED_INTENT));
-	}
-	
-	@Override
-	public void onPause() {
-		super.onPause();
-		LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(receiver);
-	}
+        LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter(Constants.DATA_WAS_UPDATED_INTENT));
+    }
+    
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this.getActivity()).unregisterReceiver(receiver);
+    }
 
-	
+    
 }
